@@ -1,10 +1,12 @@
-// next.config.js
+// next.config.mjs
 const isCI = process.env.GITHUB_ACTIONS === 'true';
 
-module.exports = {
-  output: 'export',                 // génère ./out
-  images: { unoptimized: true },    // requis sur Pages
+const nextConfig = {
+  output: 'export',
+  images: { unoptimized: true },
   basePath: isCI ? '/sgdf-crowdfunding' : '',
   assetPrefix: isCI ? '/sgdf-crowdfunding/' : '',
-  // trailingSlash: true,            // optionnel, aide contre certains 404
+  // trailingSlash: true,
 };
+
+export default nextConfig;
