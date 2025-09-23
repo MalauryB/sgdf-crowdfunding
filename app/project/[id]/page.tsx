@@ -65,7 +65,7 @@ const projectData = {
     <h3>Impact pédagogique</h3>
     <p>Ce camp permettra à nos jeunes de développer leur autonomie, de découvrir la montagne et de vivre une aventure collective inoubliable dans l'esprit scout.</p>
   `,
-  images: ["/scout-building-construction.jpg", "/placeholder.svg?key=camp1", "/placeholder.svg?key=camp2"],
+  images: ["/chalet_de_montagne.png", "/ardèche.png", "/camping_materiels.png"],
   category: "Activité",
   branch: "louveteaux",
   location: "Chamonix, Haute-Savoie",
