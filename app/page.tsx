@@ -10,6 +10,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { Search, Filter, Heart, TrendingUp, Clock, User, LogOut, Settings } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
+import { getAssetPath } from "@/lib/utils"
 
 const investmentProjectsAdvanced = [
   {
@@ -17,7 +18,7 @@ const investmentProjectsAdvanced = [
     title: "Rénovation du local scout de Toulouse",
     description:
       "Nos Pionniers-Caravelles rénovent entièrement notre local : peinture, électricité et aménagement d'une salle d'activités.",
-    image: "/renovation_local_scout_toulouse.png",
+    image: getAssetPath("/renovation_local_scout_toulouse.png"),
     category: "Investissement",
     location: "Toulouse, Haute-Garonne",
     targetAmount: 8500,

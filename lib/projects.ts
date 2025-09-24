@@ -1,3 +1,5 @@
+import { getAssetPath } from './utils';
+
 /**
  * Utilitaires pour extraire automatiquement les IDs de projets depuis les données mockées
  */
