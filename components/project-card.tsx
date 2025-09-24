@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Calendar, MapPin, Users, Edit3, Heart } from "lucide-react"
+import { getAssetPath } from "@/lib/utils"
 
 interface ProjectCardProps {
   id: string
@@ -78,7 +79,7 @@ export function ProjectCard({
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <div className="relative">
-        <img src={image || "/placeholder.svg"} alt={title} className="w-full h-48 object-cover" />
+        <img src={getAssetPath(image || "/placeholder.svg")} alt={title} className="w-full h-48 object-cover" />
         {branch && <Badge className={`absolute top-3 left-3 ${branchColorClass}`}>{branch}</Badge>}
         {onToggleFavorite && (
           <Button
@@ -143,12 +144,12 @@ export function ProjectCard({
               </a>
             </Button>
             <Button className="flex-1 bg-primary hover:bg-primary/90" asChild>
-              <a href={`/project/${id}`}>Voir le projet</a>
+              <a href={getAssetPath(`/project/${id}`)}>Voir le projet</a>
             </Button>
           </>
         ) : (
           <Button className="w-full bg-primary hover:bg-primary/90" asChild>
-            <a href={`/project/${id}`}>Soutenir ce projet</a>
+            <a href={getAssetPath(`/project/${id}`)}>Soutenir ce projet</a>
           </Button>
         )}
       </CardFooter>

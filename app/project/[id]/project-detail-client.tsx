@@ -33,6 +33,7 @@ import {
   CheckCircle,
   AlertTriangle,
 } from "lucide-react"
+import { getAssetPath } from "@/lib/utils"
 
 // Mock data for the project
 const projectData = {
@@ -280,7 +281,7 @@ export default function ProjectDetailClient({ params }: { params: { id: string }
             <div className="space-y-4">
               <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden">
                 <img
-                  src={projectData.images[currentImageIndex]}
+                  src={getAssetPath(projectData.images[currentImageIndex])}
                   alt={`Image ${currentImageIndex + 1}`}
                   className="w-full h-full object-cover"
                 />
@@ -295,7 +296,7 @@ export default function ProjectDetailClient({ params }: { params: { id: string }
                         currentImageIndex === index ? "border-primary" : "border-transparent"
                       }`}
                     >
-                      <img src={image} alt={`Aperçu ${index + 1}`} className="w-full h-full object-cover" />
+                      <img src={getAssetPath(image)} alt={`Aperçu ${index + 1}`} className="w-full h-full object-cover" />
                     </button>
                   ))}
                 </div>
@@ -329,7 +330,7 @@ export default function ProjectDetailClient({ params }: { params: { id: string }
                       <CardContent className="p-6">
                         <div className="flex items-start space-x-4">
                           <Avatar>
-                            <AvatarImage src={update.avatar} />
+                            <AvatarImage src={getAssetPath(update.avatar)} />
                             <AvatarFallback>{update.author.split(" ").map((n) => n[0]).join("")}</AvatarFallback>
                           </Avatar>
                           <div className="flex-1">
@@ -402,7 +403,7 @@ export default function ProjectDetailClient({ params }: { params: { id: string }
                           <div key={comment.id} className="border-t pt-6">
                             <div className="flex items-start space-x-4">
                               <Avatar>
-                                <AvatarImage src={comment.avatar} />
+                                <AvatarImage src={getAssetPath(comment.avatar)} />
                                 <AvatarFallback>
                                   {comment.author.split(" ").map((n) => n[0]).join("")}
                                 </AvatarFallback>
@@ -453,7 +454,7 @@ export default function ProjectDetailClient({ params }: { params: { id: string }
                                     {comment.replies.map((reply) => (
                                       <div key={reply.id} className="flex items-start space-x-3">
                                         <Avatar className="w-8 h-8">
-                                          <AvatarImage src={reply.avatar} />
+                                          <AvatarImage src={getAssetPath(reply.avatar)} />
                                           <AvatarFallback>
                                             {reply.author.split(" ").map((n) => n[0]).join("")}
                                           </AvatarFallback>
