@@ -5,8 +5,8 @@ const nextConfig = {
   output: 'export',
   images: { unoptimized: true },
   basePath: isCI ? '/sgdf-crowdfunding' : '',
-  assetPrefix: isCI ? '/sgdf-crowdfunding/' : '',
-  // trailingSlash: true,
+  assetPrefix: isCI ? '/sgdf-crowdfunding' : '',
+  trailingSlash: true,
 };
 
 export default nextConfig;
