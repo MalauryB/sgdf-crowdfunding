@@ -11,7 +11,6 @@ import { Search, Filter, Heart, TrendingUp, Clock, User, LogOut, Settings } from
 import Link from "next/link"
 import { useState } from "react"
 import { getAssetPath } from "@/lib/utils"
-import { DebugImage } from "@/components/debug-image"
 
 const investmentProjectsAdvanced = [
   {
@@ -387,18 +386,6 @@ export default function HomePage() {
           </div>
         </div>
       </header>
-
-      {/* Debug Section - À SUPPRIMER après que les images fonctionnent */}
-      <section className="bg-red-50 py-8">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold text-red-600 mb-4">🔧 DEBUG - Images Test</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <DebugImage src="/renovation_local_scout_toulouse.png" alt="Test 1" />
-            <DebugImage src="/ardèche.png" alt="Test 2" />
-            <DebugImage src="/formation_bafa.png" alt="Test 3" />
-          </div>
-        </div>
-      </section>
 
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary/5 to-secondary/10 py-16">
