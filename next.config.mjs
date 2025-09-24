@@ -1,12 +1,12 @@
 // next.config.mjs
-const isGitHubPages = process.env.GITHUB_ACTIONS === 'true';
 const repoName = 'sgdf-crowdfunding';
+const isProduction = process.env.NODE_ENV === 'production';
 
 const nextConfig = {
   output: 'export',
   images: { unoptimized: true },
-  basePath: isGitHubPages ? `/${repoName}` : '',
-  assetPrefix: isGitHubPages ? `/${repoName}/` : '',
+  basePath: isProduction ? `/${repoName}` : '',
+  assetPrefix: isProduction ? `/${repoName}/` : '',
   trailingSlash: true,
 };
 

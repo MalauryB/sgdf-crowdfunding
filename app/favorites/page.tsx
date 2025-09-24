@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { getAssetPath } from "@/lib/utils"
 import { SGDFLogo } from "@/components/sgdf-logo"
 import { ProjectCard } from "@/components/project-card"
 import { Button } from "@/components/ui/button"
@@ -17,7 +18,7 @@ export default function FavoritesPage() {
       id: "1",
       title: "Camp d'été Scouts - Forêt de Fontainebleau",
       description: "Organisation du camp d'été 2025 pour 40 jeunes scouts dans la magnifique forêt de Fontainebleau.",
-      image: "/chalet_de_montagne.png",
+      image: getAssetPath("/chalet_de_montagne.png"),
       raised: 2800,
       goal: 4500,
       contributors: 23,
@@ -34,7 +35,7 @@ export default function FavoritesPage() {
       id: "2",
       title: "Projet solidaire - Aide aux sinistrés",
       description: "Collecte de fonds pour venir en aide aux familles touchées par les inondations dans le Sud-Ouest.",
-      image: "/renovation_local_scout_toulouse.png",
+      image: getAssetPath("/renovation_local_scout_toulouse.png"),
       raised: 3200,
       goal: 5000,
       contributors: 45,
@@ -51,7 +52,7 @@ export default function FavoritesPage() {
       id: "3",
       title: "Formation BAFA - Session Automne",
       description: "Organisation d'une session de formation BAFA pour 25 futurs animateurs scouts.",
-      image: "/formation_bafa.png",
+      image: getAssetPath("/formation_bafa.png"),
       raised: 800,
       goal: 1500,
       contributors: 12,
@@ -68,7 +69,7 @@ export default function FavoritesPage() {
       id: "4",
       title: "Matériel nautique - Base de Carnac",
       description: "Renouvellement des kayaks et équipements de sécurité pour les activités nautiques en Bretagne.",
-      image: "/equipement_nautique.png",
+      image: getAssetPath("/equipement_nautique.png"),
       raised: 1200,
       goal: 3200,
       contributors: 8,

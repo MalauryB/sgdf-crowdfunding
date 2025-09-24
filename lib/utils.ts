@@ -15,8 +15,9 @@ export function getAssetPath(path: string): string {
     return path.startsWith('/') ? path : `/${path}`;
   }
 
-  // En production sur GitHub Pages
-  const basePath = process.env.GITHUB_ACTIONS === 'true' ? '/sgdf-crowdfunding' : '';
+  // En production, TOUJOURS utiliser le basePath pour GitHub Pages
+  // (plus simple et évite les problèmes d'hydratation)
+  const basePath = '/sgdf-crowdfunding';
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
 
   return `${basePath}${normalizedPath}`;
