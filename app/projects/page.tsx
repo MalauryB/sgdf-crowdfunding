@@ -572,7 +572,7 @@ export default function ProjectsPage() {
                         <Checkbox
                           id="heavy-projects"
                           checked={showHeavyProjects}
-                          onCheckedChange={setShowHeavyProjects}
+                          onCheckedChange={(checked) => setShowHeavyProjects(checked === true)}
                         />
                         <Label htmlFor="heavy-projects" className="text-sm font-medium">
                           Projets lourds uniquement

@@ -137,7 +137,7 @@ export function ProjectCard({
         {showEditButton ? (
           <>
             <Button variant="outline" className="flex-1 bg-transparent" asChild>
-              <a href={`/project/${id}/edit`}>
+              <a href={`#`}>
                 <Edit3 className="w-4 h-4 mr-2" />
                 Modifier
               </a>

@@ -452,7 +452,7 @@ export default function CreateProjectPage() {
                       <PopoverContent className="w-auto p-0">
                         <Calendar
                           mode="single"
-                          selected={formData.deadline}
+                          selected={formData.deadline || undefined}
                           onSelect={(date) => handleInputChange("deadline", date)}
                           initialFocus
                         />

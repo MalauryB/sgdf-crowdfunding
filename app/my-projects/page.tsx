@@ -333,7 +333,7 @@ export default function MyProjectsPage() {
         <div className="container mx-auto px-4 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <SGDFLogo size="sm" variant="white" className="mb-4" />
+              <SGDFLogo size="sm" className="mb-4" />
               <p className="text-sm opacity-90">
                 Mouvement de jeunesse et d'éducation populaire catholique ouvert à tous.
               </p>

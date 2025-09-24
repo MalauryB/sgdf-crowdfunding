@@ -466,15 +466,10 @@ export default function ValidationPage() {
                             <Badge variant="outline">{project.type}</Badge>
                           </div>
                           <p className="text-sm text-gray-600 mb-2">{project.structure}</p>
-                          {project.validationComment && (
-                            <div className="bg-gray-50 p-3 rounded-lg">
-                              <p className="text-sm text-gray-700">{project.validationComment}</p>
-                            </div>
-                          )}
                         </div>
                         <div className="text-right text-sm text-gray-500">
-                          <div>Traité le {new Date(project.validatedAt || "").toLocaleDateString("fr-FR")}</div>
-                          <div>par {project.validatedBy}</div>
+                          <div>Modifié le {new Date(project.lastModified).toLocaleDateString("fr-FR")}</div>
+                          <div>par {project.creator}</div>
                         </div>
                       </div>
                     </CardContent>
