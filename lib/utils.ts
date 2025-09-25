@@ -25,33 +25,48 @@ export function getAssetPath(path: string): string {
 
 /**
  * Génère le chemin correct pour les images et assets statiques
- * Next.js gère automatiquement le basePath pour les assets, pas besoin de l'ajouter manuellement
+ * En production, Next.js gère automatiquement le basePath via assetPrefix
+ * En développement, on utilise les chemins simples
  */
 export function getImagePath(path: string): string {
-  return path.startsWith('/') ? path : `/${path}`;
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+
+  // En production, Next.js ajoute automatiquement l'assetPrefix
+  // donc on retourne juste le chemin normalisé
+  return normalizedPath;
 }
+
+/**
+ * Map des projets avec des extensions spéciales
+ */
+const PROJECT_EXTENSIONS: Record<string, string> = {
+  'materiel-nautique-carnac': 'jpg',
+  // Ajouter d'autres projets avec des extensions non-PNG ici
+};
 
 /**
  * Génère le chemin de l'image principale d'un projet (image_1)
  * @param projectSlug - Le slug du projet (ex: "camp-ete-ardeche")
- * @param extension - L'extension du fichier (par défaut "png")
+ * @param extension - L'extension du fichier (auto-détectée ou spécifiée)
  * @returns Le chemin vers l'image principale du projet
  */
-export function getProjectMainImage(projectSlug: string, extension: string = 'png'): string {
-  return `/projects/${projectSlug}/image_1.${extension}`;
+export function getProjectMainImage(projectSlug: string, extension?: string): string {
+  const ext = extension || PROJECT_EXTENSIONS[projectSlug] || 'png';
+  return `/projects/${projectSlug}/image_1.${ext}`;
 }
 
 /**
  * Génère la liste des chemins d'images d'un projet pour la galerie
  * @param projectSlug - Le slug du projet
  * @param imageCount - Nombre d'images disponibles
- * @param extension - L'extension des fichiers (par défaut "png")
+ * @param extension - L'extension des fichiers (auto-détectée ou spécifiée)
  * @returns Un tableau des chemins d'images
  */
-export function getProjectImages(projectSlug: string, imageCount: number = 4, extension: string = 'png'): string[] {
+export function getProjectImages(projectSlug: string, imageCount: number = 4, extension?: string): string[] {
+  const ext = extension || PROJECT_EXTENSIONS[projectSlug] || 'png';
   const images = [];
   for (let i = 1; i <= imageCount; i++) {
-    images.push(`/projects/${projectSlug}/image_${i}.${extension}`);
+    images.push(`/projects/${projectSlug}/image_${i}.${ext}`);
   }
   return images;
 }

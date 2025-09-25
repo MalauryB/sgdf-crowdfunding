@@ -107,6 +107,40 @@ export const PROJECTS_DATABASE: Project[] = [
     comments: []
   },
   {
+    id: "4",
+    title: "Équipement nautique pour les marins",
+    description: "Achat de kayaks et matériel de sécurité pour les activités nautiques de notre groupe marin bordelais.",
+    longDescription: `
+      <h3>Notre projet nautique</h3>
+      <p>Notre groupe marin souhaite développer les activités nautiques avec un équipement moderne et sécurisé.</p>
+
+      <h3>Matériel prévu</h3>
+      <ul>
+        <li>6 kayaks biplace tout niveau</li>
+        <li>Gilets de sauvetage aux normes</li>
+        <li>Pagaies de rechange</li>
+        <li>Kit de réparation et maintenance</li>
+        <li>Remorque de transport</li>
+      </ul>
+    `,
+    image: getImagePath(getProjectMainImage("materiel-nautique-carnac")),
+    slug: "materiel-nautique-carnac",
+    category: "Investissement",
+    location: "Carnac, Morbihan",
+    targetAmount: 5200,
+    currentAmount: 1560,
+    daysLeft: 55,
+    supportersCount: 8,
+    branch: "marins",
+    organizer: "Groupe Scout Carnac",
+    dateCreated: "2024-11-05",
+    isPublic: true,
+    images: getProjectImages("materiel-nautique-carnac", 4),
+    updates: [],
+    documents: [],
+    comments: []
+  },
+  {
     id: "2",
     title: "Achat d'un minibus pour le groupe",
     description: "Acquisition d'un véhicule 9 places pour faciliter les déplacements lors des sorties et week-ends scouts en région parisienne.",
