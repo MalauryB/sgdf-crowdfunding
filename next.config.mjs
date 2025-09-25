@@ -6,7 +6,7 @@ const nextConfig = {
   output: 'export',
   images: { unoptimized: true },
   basePath: isProduction ? `/${repoName}` : '',
-  assetPrefix: isProduction ? `/${repoName}` : '',
+  // assetPrefix retiré car on gère les images manuellement avec getImagePath()
   trailingSlash: true,
 };
 export default nextConfig;
