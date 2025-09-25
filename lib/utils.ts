@@ -25,12 +25,22 @@ export function getAssetPath(path: string): string {
 
 /**
  * Génère le chemin correct pour les images et assets statiques
- * Next.js ajoute automatiquement le basePath configuré, donc on retourne juste le chemin simple
+ * Pour GitHub Pages, il faut ajouter manuellement le préfixe en production
  */
 export function getImagePath(path: string): string {
-  // Next.js gère automatiquement le basePath via la config next.config.mjs
-  // Donc on retourne juste le chemin normalisé sans préfixe manuel
-  return path.startsWith('/') ? path : `/${path}`;
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+
+  // En production, forcer l'ajout du basePath car assetPrefix ne marche pas
+  // pour les images statiques dans public/ utilisées avec <img src="">
+  if (process.env.NODE_ENV === 'production') {
+    // Si le chemin contient déjà le préfixe, ne pas le dupliquer
+    if (normalizedPath.startsWith('/sgdf-crowdfunding/')) {
+      return normalizedPath;
+    }
+    return `/sgdf-crowdfunding${normalizedPath}`;
+  }
+
+  return normalizedPath;
 }
 
 /**
