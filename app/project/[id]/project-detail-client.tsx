@@ -33,7 +33,7 @@ import {
   CheckCircle,
   AlertTriangle,
 } from "lucide-react"
-import { getAssetPath } from "@/lib/utils"
+import { getAssetPath, getImagePath } from "@/lib/utils"
 
 // Mock data for the project
 const projectData = {
@@ -199,20 +199,20 @@ export default function ProjectDetailClient({ params }: { params: { id: string }
             <div className="flex items-center space-x-8">
               <SGDFLogo size="sm" className="h-8" />
               <nav className="hidden md:flex items-center space-x-6">
-                <a href="/" className="text-foreground hover:text-primary font-medium">
+                <a href={getAssetPath("/")} className="text-foreground hover:text-primary font-medium">
                   Accueil
                 </a>
-                <a href="/projects" className="text-foreground hover:text-primary font-medium">
+                <a href={getAssetPath("/projects")} className="text-foreground hover:text-primary font-medium">
                   Projets
                 </a>
-                <a href="/my-projects" className="text-foreground hover:text-primary font-medium">
+                <a href={getAssetPath("/my-projects")} className="text-foreground hover:text-primary font-medium">
                   Mes projets
                 </a>
               </nav>
             </div>
             <div className="flex items-center space-x-4">
               <Button variant="outline" size="sm" asChild>
-                <a href="/create-project">Créer un projet</a>
+                <a href={getAssetPath("/create-project")}>Créer un projet</a>
               </Button>
             </div>
           </div>
@@ -222,11 +222,11 @@ export default function ProjectDetailClient({ params }: { params: { id: string }
       {/* Breadcrumb */}
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center space-x-2 text-sm text-gray-600">
-          <a href="/" className="hover:text-primary">
+          <a href={getAssetPath("/")} className="hover:text-primary">
             Accueil
           </a>
           <span>/</span>
-          <a href="/projects" className="hover:text-primary">
+          <a href={getAssetPath("/projects")} className="hover:text-primary">
             Projets
           </a>
           <span>/</span>
@@ -241,7 +241,7 @@ export default function ProjectDetailClient({ params }: { params: { id: string }
           <div className="lg:col-span-2 space-y-6">
             {/* Back Button */}
             <Button variant="outline" size="sm" asChild className="w-fit">
-              <a href="/projects">
+              <a href={getAssetPath("/projects")}>
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Retour aux projets
               </a>
@@ -281,7 +281,7 @@ export default function ProjectDetailClient({ params }: { params: { id: string }
             <div className="space-y-4">
               <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden">
                 <img
-                  src={getAssetPath(projectData.images[currentImageIndex])}
+                  src={getImagePath(projectData.images[currentImageIndex])}
                   alt={`Image ${currentImageIndex + 1}`}
                   className="w-full h-full object-cover"
                 />
@@ -296,7 +296,7 @@ export default function ProjectDetailClient({ params }: { params: { id: string }
                         currentImageIndex === index ? "border-primary" : "border-transparent"
                       }`}
                     >
-                      <img src={getAssetPath(image)} alt={`Aperçu ${index + 1}`} className="w-full h-full object-cover" />
+                      <img src={getImagePath(image)} alt={`Aperçu ${index + 1}`} className="w-full h-full object-cover" />
                     </button>
                   ))}
                 </div>
@@ -330,7 +330,7 @@ export default function ProjectDetailClient({ params }: { params: { id: string }
                       <CardContent className="p-6">
                         <div className="flex items-start space-x-4">
                           <Avatar>
-                            <AvatarImage src={getAssetPath(update.avatar)} />
+                            <AvatarImage src={getImagePath(update.avatar)} />
                             <AvatarFallback>{update.author.split(" ").map((n) => n[0]).join("")}</AvatarFallback>
                           </Avatar>
                           <div className="flex-1">
@@ -403,7 +403,7 @@ export default function ProjectDetailClient({ params }: { params: { id: string }
                           <div key={comment.id} className="border-t pt-6">
                             <div className="flex items-start space-x-4">
                               <Avatar>
-                                <AvatarImage src={getAssetPath(comment.avatar)} />
+                                <AvatarImage src={getImagePath(comment.avatar)} />
                                 <AvatarFallback>
                                   {comment.author.split(" ").map((n) => n[0]).join("")}
                                 </AvatarFallback>
@@ -454,7 +454,7 @@ export default function ProjectDetailClient({ params }: { params: { id: string }
                                     {comment.replies.map((reply) => (
                                       <div key={reply.id} className="flex items-start space-x-3">
                                         <Avatar className="w-8 h-8">
-                                          <AvatarImage src={getAssetPath(reply.avatar)} />
+                                          <AvatarImage src={getImagePath(reply.avatar)} />
                                           <AvatarFallback>
                                             {reply.author.split(" ").map((n) => n[0]).join("")}
                                           </AvatarFallback>

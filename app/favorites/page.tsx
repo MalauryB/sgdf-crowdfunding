@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { getAssetPath } from "@/lib/utils"
+import { getAssetPath, getImagePath } from "@/lib/utils"
 import { SGDFLogo } from "@/components/sgdf-logo"
 import { ProjectCard } from "@/components/project-card"
 import { Button } from "@/components/ui/button"
@@ -18,7 +18,7 @@ export default function FavoritesPage() {
       id: "1",
       title: "Camp d'été Scouts - Forêt de Fontainebleau",
       description: "Organisation du camp d'été 2025 pour 40 jeunes scouts dans la magnifique forêt de Fontainebleau.",
-      image: getAssetPath("/chalet_de_montagne.png"),
+      image: getImagePath("/chalet_de_montagne.png"),
       raised: 2800,
       goal: 4500,
       contributors: 23,
@@ -35,7 +35,7 @@ export default function FavoritesPage() {
       id: "2",
       title: "Projet solidaire - Aide aux sinistrés",
       description: "Collecte de fonds pour venir en aide aux familles touchées par les inondations dans le Sud-Ouest.",
-      image: getAssetPath("/renovation_local_scout_toulouse.png"),
+      image: getImagePath("/renovation_local_scout_toulouse.png"),
       raised: 3200,
       goal: 5000,
       contributors: 45,
@@ -52,7 +52,7 @@ export default function FavoritesPage() {
       id: "3",
       title: "Formation BAFA - Session Automne",
       description: "Organisation d'une session de formation BAFA pour 25 futurs animateurs scouts.",
-      image: getAssetPath("/formation_bafa.png"),
+      image: getImagePath("/formation_bafa.png"),
       raised: 800,
       goal: 1500,
       contributors: 12,
@@ -69,7 +69,7 @@ export default function FavoritesPage() {
       id: "4",
       title: "Matériel nautique - Base de Carnac",
       description: "Renouvellement des kayaks et équipements de sécurité pour les activités nautiques en Bretagne.",
-      image: getAssetPath("/equipement_nautique.png"),
+      image: getImagePath("/equipement_nautique.png"),
       raised: 1200,
       goal: 3200,
       contributors: 8,
@@ -106,25 +106,25 @@ export default function FavoritesPage() {
             <div className="flex items-center space-x-8">
               <SGDFLogo size="md" />
               <nav className="hidden md:flex items-center space-x-6">
-                <a href="/" className="text-foreground hover:text-primary font-medium">
+                <a href={getAssetPath("/")} className="text-foreground hover:text-primary font-medium">
                   Accueil
                 </a>
-                <a href="/projects" className="text-foreground hover:text-primary font-medium">
+                <a href={getAssetPath("/projects")} className="text-foreground hover:text-primary font-medium">
                   Projets
                 </a>
-                <a href="/my-projects" className="text-foreground hover:text-primary font-medium">
+                <a href={getAssetPath("/my-projects")} className="text-foreground hover:text-primary font-medium">
                   Mes projets
                 </a>
               </nav>
             </div>
             <div className="flex items-center space-x-4">
               <Button variant="ghost" size="sm" asChild>
-                <a href="/favorites" className="text-primary">
+                <a href={getAssetPath("/favorites")} className="text-primary">
                   ❤️ Favoris
                 </a>
               </Button>
               <Button asChild>
-                <a href="/create-project">Créer un projet</a>
+                <a href={getAssetPath("/create-project")}>Créer un projet</a>
               </Button>
             </div>
           </div>
@@ -265,7 +265,7 @@ export default function FavoritesPage() {
                 : `Votre structure "${userStructure}" n'a pas encore de projets favoris. Parcourez les projets et ajoutez-en à vos favoris !`}
             </p>
             <Button asChild>
-              <a href="/projects">Découvrir les projets</a>
+              <a href={getAssetPath("/projects")}>Découvrir les projets</a>
             </Button>
           </div>
         )}
@@ -299,10 +299,10 @@ export default function FavoritesPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild>
-                <a href="/projects">Découvrir plus de projets</a>
+                <a href={getAssetPath("/projects")}>Découvrir plus de projets</a>
               </Button>
               <Button variant="outline" asChild>
-                <a href="/create-project">Créer mon projet</a>
+                <a href={getAssetPath("/create-project")}>Créer mon projet</a>
               </Button>
             </div>
           </div>
@@ -323,17 +323,17 @@ export default function FavoritesPage() {
               <h4 className="font-semibold mb-4">Projets</h4>
               <ul className="space-y-2 text-sm opacity-90">
                 <li>
-                  <a href="/projects" className="hover:opacity-100">
+                  <a href={getAssetPath("/projects")} className="hover:opacity-100">
                     Tous les projets
                   </a>
                 </li>
                 <li>
-                  <a href="/my-projects" className="hover:opacity-100">
+                  <a href={getAssetPath("/my-projects")} className="hover:opacity-100">
                     Mes projets
                   </a>
                 </li>
                 <li>
-                  <a href="/favorites" className="hover:opacity-100">
+                  <a href={getAssetPath("/favorites")} className="hover:opacity-100">
                     Favoris
                   </a>
                 </li>

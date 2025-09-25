@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { getAssetPath } from "@/lib/utils"
+import { getAssetPath, getImagePath } from "@/lib/utils"
 import { SGDFLogo } from "@/components/sgdf-logo"
 import { ProjectCard } from "@/components/project-card"
 import { Button } from "@/components/ui/button"
@@ -19,7 +19,7 @@ export default function MyProjectsPage() {
       id: "1",
       title: "Camp d'été Scouts - Forêt de Fontainebleau",
       description: "Organisation du camp d'été 2025 pour 40 jeunes scouts dans la magnifique forêt de Fontainebleau.",
-      image: getAssetPath("/chalet_de_montagne.png"),
+      image: getImagePath("/chalet_de_montagne.png"),
       raised: 2800,
       goal: 4500,
       contributors: 23,
@@ -38,7 +38,7 @@ export default function MyProjectsPage() {
       id: "2",
       title: "Matériel nautique - Base de Carnac",
       description: "Renouvellement des kayaks et équipements de sécurité pour les activités nautiques.",
-      image: getAssetPath("/equipement_nautique.png"),
+      image: getImagePath("/equipement_nautique.png"),
       raised: 1200,
       goal: 3200,
       contributors: 8,
@@ -60,7 +60,7 @@ export default function MyProjectsPage() {
       id: "3",
       title: "Formation BAFA - Session Automne",
       description: "Organisation d'une session de formation BAFA pour 25 futurs animateurs.",
-      image: getAssetPath("/formation_bafa.png"),
+      image: getImagePath("/formation_bafa.png"),
       raised: 800,
       goal: 1500,
       contributors: 12,
@@ -82,7 +82,7 @@ export default function MyProjectsPage() {
       id: "4",
       title: "Rénovation du local scout",
       description: "Travaux de rénovation et d'aménagement du local du groupe scout de Lyon 3e.",
-      image: getAssetPath("/renovation_local_scout_toulouse.png"),
+      image: getImagePath("/renovation_local_scout_toulouse.png"),
       raised: 5200,
       goal: 8000,
       contributors: 34,
@@ -101,7 +101,7 @@ export default function MyProjectsPage() {
       id: "5",
       title: "Jardin pédagogique Louveteaux",
       description: "Création d'un jardin pédagogique pour sensibiliser les plus jeunes à l'écologie.",
-      image: getAssetPath("/jardin_pedagogique.png"),
+      image: getImagePath("/jardin_pedagogique.png"),
       raised: 450,
       goal: 900,
       contributors: 15,
@@ -137,23 +137,23 @@ export default function MyProjectsPage() {
             <div className="flex items-center space-x-8">
               <SGDFLogo size="md" />
               <nav className="hidden md:flex items-center space-x-6">
-                <a href="/" className="text-foreground hover:text-primary font-medium">
+                <a href={getAssetPath("/")} className="text-foreground hover:text-primary font-medium">
                   Accueil
                 </a>
-                <a href="/projects" className="text-foreground hover:text-primary font-medium">
+                <a href={getAssetPath("/projects")} className="text-foreground hover:text-primary font-medium">
                   Projets
                 </a>
-                <a href="/my-projects" className="text-primary font-medium">
+                <a href={getAssetPath("/my-projects")} className="text-primary font-medium">
                   Mes projets
                 </a>
               </nav>
             </div>
             <div className="flex items-center space-x-4">
               <Button variant="ghost" size="sm" asChild>
-                <a href="/favorites">❤️ Favoris</a>
+                <a href={getAssetPath("/favorites")}>❤️ Favoris</a>
               </Button>
               <Button asChild>
-                <a href="/create-project">
+                <a href={getAssetPath("/create-project")}>
                   <Plus className="w-4 h-4 mr-2" />
                   Créer un projet
                 </a>
@@ -319,7 +319,7 @@ export default function MyProjectsPage() {
               </p>
               {!searchQuery && (
                 <Button asChild>
-                  <a href="/create-project">
+                  <a href={getAssetPath("/create-project")}>
                     <Plus className="w-4 h-4 mr-2" />
                     Créer mon premier projet
                   </a>
@@ -343,17 +343,17 @@ export default function MyProjectsPage() {
               <h4 className="font-semibold mb-4">Projets</h4>
               <ul className="space-y-2 text-sm opacity-90">
                 <li>
-                  <a href="/projects" className="hover:opacity-100">
+                  <a href={getAssetPath("/projects")} className="hover:opacity-100">
                     Tous les projets
                   </a>
                 </li>
                 <li>
-                  <a href="/my-projects" className="hover:opacity-100">
+                  <a href={getAssetPath("/my-projects")} className="hover:opacity-100">
                     Mes projets
                   </a>
                 </li>
                 <li>
-                  <a href="/create-project" className="hover:opacity-100">
+                  <a href={getAssetPath("/create-project")} className="hover:opacity-100">
                     Créer un projet
                   </a>
                 </li>

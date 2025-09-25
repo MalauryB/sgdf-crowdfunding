@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { getAssetPath } from "@/lib/utils"
+import { getAssetPath, getImagePath } from "@/lib/utils"
 import { SGDFLogo } from "@/components/sgdf-logo"
 import { ProjectCard } from "@/components/project-card"
 import { Button } from "@/components/ui/button"
@@ -32,7 +32,7 @@ const allProjects = [
     title: "Camp d'été Louveteaux-Jeannettes en Ardèche",
     description:
       "Financement du camp d'été de notre meute et compagnie pour 8 jours dans les gorges de l'Ardèche avec canoë et grands jeux nature.",
-    image: getAssetPath("/ardèche.png"),
+    image: getImagePath("/ardèche.png"),
     category: "Activité",
     location: "Vallon-Pont-d'Arc, Ardèche",
     targetAmount: 4500,
@@ -49,7 +49,7 @@ const allProjects = [
     title: "Rénovation du local scout de Toulouse",
     description:
       "Nos Pionniers-Caravelles rénovent entièrement notre local : peinture, électricité et aménagement d'une salle d'activités.",
-    image: getAssetPath("/renovation_local_scout_toulouse.png"),
+    image: getImagePath("/renovation_local_scout_toulouse.png"),
     category: "Investissement",
     location: "Toulouse, Haute-Garonne",
     targetAmount: 8500,
@@ -66,7 +66,7 @@ const allProjects = [
     title: "Achat d'un minibus pour le groupe",
     description:
       "Acquisition d'un véhicule 9 places pour faciliter les déplacements lors des sorties et week-ends scouts en région parisienne.",
-    image: getAssetPath("/minibus_pour_le_groupe.png"),
+    image: getImagePath("/minibus_pour_le_groupe.png"),
     category: "Investissement",
     location: "Créteil, Val-de-Marne",
     targetAmount: 18000,
@@ -82,7 +82,7 @@ const allProjects = [
     id: "4",
     title: "Matériel de camping pour la troupe",
     description: "Renouvellement des tentes, réchauds et matériel de cuisine pour les camps scouts en Bretagne.",
-    image: getAssetPath("/camping_materiels.png"),
+    image: getImagePath("/camping_materiels.png"),
     category: "Investissement",
     location: "Rennes, Ille-et-Vilaine",
     targetAmount: 2800,
@@ -98,7 +98,7 @@ const allProjects = [
     id: "5",
     title: "Formation BAFA pour nos chefs",
     description: "Financement de la formation BAFA pour 6 nouveaux chefs et cheftaines du groupe lyonnais.",
-    image: getAssetPath("/formation_bafa.png"),
+    image: getImagePath("/formation_bafa.png"),
     category: "Formation",
     location: "Lyon, Rhône",
     targetAmount: 3600,
@@ -115,7 +115,7 @@ const allProjects = [
     title: "Jardin pédagogique pour les Farfadets",
     description:
       "Création d'un potager éducatif dans notre jardin alsacien pour sensibiliser nos plus jeunes à l'écologie.",
-    image: getAssetPath("/chalet_de_montagne.png"),
+    image: getImagePath("/chalet_de_montagne.png"),
     category: "Environnement",
     location: "Strasbourg, Bas-Rhin",
     targetAmount: 1500,
@@ -131,7 +131,7 @@ const allProjects = [
     id: "7",
     title: "Week-end ski pour les Scouts-Guides",
     description: "Organisation d'un week-end à la montagne avec cours de ski et veillées pour 25 jeunes savoyards.",
-    image: getAssetPath("/weekend_ski.png"),
+    image: getImagePath("/weekend_ski.png"),
     category: "Activité",
     location: "Les Gets, Haute-Savoie",
     targetAmount: 3200,
@@ -147,7 +147,7 @@ const allProjects = [
     id: "8",
     title: "Rénovation du chalet scout des Vosges",
     description: "Travaux de toiture, isolation et aménagement de notre chalet pour accueillir les camps d'hiver.",
-    image: getAssetPath("/montagne_vosges.png"),
+    image: getImagePath("/montagne_vosges.png"),
     category: "Investissement",
     location: "Gérardmer, Vosges",
     targetAmount: 12000,
@@ -163,7 +163,7 @@ const allProjects = [
     id: "9",
     title: "Matériel nautique pour les activités marines",
     description: "Achat de kayaks, gilets de sauvetage et matériel de voile pour la section marine de La Rochelle.",
-    image: getAssetPath("/equipement_nautique.png"),
+    image: getImagePath("/equipement_nautique.png"),
     category: "Investissement",
     location: "La Rochelle, Charente-Maritime",
     targetAmount: 5400,
@@ -338,10 +338,10 @@ export default function ProjectsPage() {
             <SGDFLogo size="md" />
 
             <nav className="hidden md:flex items-center space-x-6">
-              <a href="/" className="text-foreground hover:text-primary font-medium">
+              <a href={getAssetPath("/")} className="text-foreground hover:text-primary font-medium">
                 Accueil
               </a>
-              <a href="/projects" className="text-primary font-medium">
+              <a href={getAssetPath("/projects")} className="text-primary font-medium">
                 Projets
               </a>
             </nav>

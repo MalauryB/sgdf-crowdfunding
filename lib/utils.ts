@@ -6,8 +6,8 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 /**
- * Génère le chemin correct pour les assets en tenant compte du basePath
- * Utilisez cette fonction pour <img>, CSS background-image, et autres assets statiques
+ * Génère le chemin correct pour les liens de navigation en tenant compte du basePath
+ * Utilisez cette fonction UNIQUEMENT pour les liens href, pas pour les images
  */
 export function getAssetPath(path: string): string {
   // En dev, pas de basePath
@@ -21,6 +21,14 @@ export function getAssetPath(path: string): string {
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
 
   return `${basePath}${normalizedPath}`;
+}
+
+/**
+ * Génère le chemin correct pour les images et assets statiques
+ * Next.js gère automatiquement le basePath pour les assets, pas besoin de l'ajouter manuellement
+ */
+export function getImagePath(path: string): string {
+  return path.startsWith('/') ? path : `/${path}`;
 }
 
 /**

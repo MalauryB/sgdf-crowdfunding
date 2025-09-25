@@ -10,7 +10,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { Search, Filter, Heart, TrendingUp, Clock, User, LogOut, Settings } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
-import { getAssetPath } from "@/lib/utils"
+import { getAssetPath, getImagePath } from "@/lib/utils"
 
 const investmentProjectsAdvanced = [
   {
@@ -18,7 +18,7 @@ const investmentProjectsAdvanced = [
     title: "Rénovation du local scout de Toulouse",
     description:
       "Nos Pionniers-Caravelles rénovent entièrement notre local : peinture, électricité et aménagement d'une salle d'activités.",
-    image: getAssetPath("/renovation_local_scout_toulouse.png"),
+    image: getImagePath("/renovation_local_scout_toulouse.png"),
     category: "Investissement",
     location: "Toulouse, Haute-Garonne",
     targetAmount: 8500,
@@ -32,7 +32,7 @@ const investmentProjectsAdvanced = [
     title: "Achat d'un minibus pour le groupe",
     description:
       "Acquisition d'un véhicule 9 places pour faciliter les déplacements lors des sorties et week-ends scouts en région parisienne.",
-    image: getAssetPath("/minibus_pour_le_groupe.png"),
+    image: getImagePath("/minibus_pour_le_groupe.png"),
     category: "Investissement",
     location: "Créteil, Val-de-Marne",
     targetAmount: 18000,
@@ -45,7 +45,7 @@ const investmentProjectsAdvanced = [
     id: "3",
     title: "Matériel de camping pour la troupe",
     description: "Renouvellement des tentes, réchauds et matériel de cuisine pour les camps scouts en Bretagne.",
-    image: getAssetPath("/camping_materiels.png"),
+    image: getImagePath("/camping_materiels.png"),
     category: "Investissement",
     location: "Rennes, Ille-et-Vilaine",
     targetAmount: 2800,
@@ -62,7 +62,7 @@ const investmentProjectsRecent = [
     title: "Équipement nautique pour les marins",
     description:
       "Achat de kayaks et matériel de sécurité pour les activités nautiques de notre groupe marin bordelais.",
-    image: getAssetPath("/equipement_nautique.png"),
+    image: getImagePath("/equipement_nautique.png"),
     category: "Investissement",
     location: "Bordeaux, Gironde",
     targetAmount: 5200,
@@ -76,7 +76,7 @@ const investmentProjectsRecent = [
     title: "Rénovation du chalet de montagne",
     description:
       "Travaux d'isolation et de chauffage de notre chalet dans les Alpes pour accueillir les camps d'hiver.",
-    image: getAssetPath("/chalet_de_montagne.png"),
+    image: getImagePath("/chalet_de_montagne.png"),
     category: "Investissement",
     location: "Chamonix, Haute-Savoie",
     targetAmount: 12000,
@@ -89,7 +89,7 @@ const investmentProjectsRecent = [
     id: "6",
     title: "Sono et matériel audiovisuel",
     description: "Équipement pour les spectacles et veillées de notre groupe parisien.",
-    image: getAssetPath("/materiel_audiovisuel.png"),
+    image: getImagePath("/materiel_audiovisuel.png"),
     category: "Investissement",
     location: "Paris 15e, Paris",
     targetAmount: 3500,
@@ -106,7 +106,7 @@ const activityProjects = [
     title: "Camp d'été Louveteaux-Jeannettes en Ardèche",
     description:
       "Financement du camp d'été de notre meute et compagnie pour 8 jours dans les gorges de l'Ardèche avec canoë et grands jeux nature.",
-    image: getAssetPath("/ardèche.png"),
+    image: getImagePath("/ardèche.png"),
     category: "Activité",
     location: "Vallon-Pont-d'Arc, Ardèche",
     targetAmount: 4500,
@@ -119,7 +119,7 @@ const activityProjects = [
     id: "8",
     title: "Formation BAFA pour nos chefs",
     description: "Financement de la formation BAFA pour 6 nouveaux chefs et cheftaines du groupe lyonnais.",
-    image: getAssetPath("/formation_bafa.png"),
+    image: getImagePath("/formation_bafa.png"),
     category: "Formation",
     location: "Lyon, Rhône",
     targetAmount: 3600,
@@ -133,7 +133,7 @@ const activityProjects = [
     title: "Jardin pédagogique pour les Farfadets",
     description:
       "Création d'un potager éducatif dans notre jardin alsacien pour sensibiliser nos plus jeunes à l'écologie.",
-    image: getAssetPath("/jardin_pedagogique.png"),
+    image: getImagePath("/jardin_pedagogique.png"),
     category: "Activité",
     location: "Strasbourg, Bas-Rhin",
     targetAmount: 1500,
@@ -146,7 +146,7 @@ const activityProjects = [
     id: "10",
     title: "Week-end découverte nature",
     description: "Sortie éducative en forêt de Fontainebleau pour nos scouts et guides franciliens.",
-    image: getAssetPath("/camping_materiels.png"),
+    image: getImagePath("/camping_materiels.png"),
     category: "Activité",
     location: "Fontainebleau, Seine-et-Marne",
     targetAmount: 800,
@@ -162,7 +162,7 @@ const myStructureProjects = [
     id: "11",
     title: "Camp d'été de notre groupe",
     description: "Financement du camp d'été 2025 de notre groupe local avec activités nature et grands jeux.",
-    image: getAssetPath("/ardèche.png"),
+    image: getImagePath("/ardèche.png"),
     category: "Investissement",
     location: "Ma structure locale",
     targetAmount: 6500,
@@ -178,7 +178,7 @@ const parentStructureProjects = [
     id: "12",
     title: "Formation territoriale des chefs",
     description: "Programme de formation continue pour les responsables de notre territoire.",
-    image: getAssetPath("/formation_bafa.png"),
+    image: getImagePath("/formation_bafa.png"),
     category: "Formation",
     location: "Territoire de rattachement",
     targetAmount: 4200,
@@ -194,7 +194,7 @@ const nationalProjects = [
     id: "13",
     title: "Jamboree Scout Mondial 2027",
     description: "Participation de la délégation française au Jamboree Scout Mondial en Pologne.",
-    image: getAssetPath("/ardèche.png"),
+    image: getImagePath("/ardèche.png"),
     category: "Investissement",
     location: "National - International",
     targetAmount: 25000,
@@ -211,7 +211,7 @@ export default function HomePage() {
     firstName: "Marie",
     lastName: "Dupont",
     email: "marie.dupont@sgdf.fr",
-    avatar: getAssetPath("/abstract-profile.png"),
+    avatar: getImagePath("/abstract-profile.png"),
     structure: "Groupe Saint-Michel - Paris 15e",
   }
 
@@ -277,7 +277,7 @@ export default function HomePage() {
       <header className="border-b bg-white sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link href="/">
+            <Link href="/sgdf-crowdfunding">
               <SGDFLogo size="md" />
             </Link>
 
@@ -316,7 +316,7 @@ export default function HomePage() {
                       <Button variant="ghost" className="flex items-center gap-3 px-3 py-2 h-auto">
                         <Avatar className="w-8 h-8">
                           <AvatarImage
-                            src={currentUser.avatar || getAssetPath("/placeholder.svg")}
+                            src={currentUser.avatar || getImagePath("/placeholder.svg")}
                             alt={`${currentUser.firstName} ${currentUser.lastName}`}
                           />
                           <AvatarFallback className="text-xs">
@@ -336,7 +336,7 @@ export default function HomePage() {
                         <SheetTitle className="flex items-center gap-3">
                           <Avatar className="w-12 h-12">
                             <AvatarImage
-                              src={currentUser.avatar || getAssetPath("/placeholder.svg")}
+                              src={currentUser.avatar || getImagePath("/placeholder.svg")}
                               alt={`${currentUser.firstName} ${currentUser.lastName}`}
                             />
                             <AvatarFallback>

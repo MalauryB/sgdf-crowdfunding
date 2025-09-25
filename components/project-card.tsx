@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Calendar, MapPin, Users, Edit3, Heart } from "lucide-react"
-import { getAssetPath } from "@/lib/utils"
+import { getAssetPath, getImagePath } from "@/lib/utils"
 
 interface ProjectCardProps {
   id: string
@@ -79,7 +79,7 @@ export function ProjectCard({
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <div className="relative">
-        <img src={getAssetPath(image || "/placeholder.svg")} alt={title} className="w-full h-48 object-cover" />
+        <img src={getImagePath(image || "/placeholder.svg")} alt={title} className="w-full h-48 object-cover" />
         {branch && <Badge className={`absolute top-3 left-3 ${branchColorClass}`}>{branch}</Badge>}
         {onToggleFavorite && (
           <Button

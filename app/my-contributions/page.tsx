@@ -169,11 +169,11 @@ export default function MyContributionsPage() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-8">
-              <Link href="/">
+              <Link href="/sgdf-crowdfunding">
                 <SGDFLogo size="md" />
               </Link>
               <nav className="hidden md:flex items-center space-x-6">
-                <Link href="/" className="text-foreground hover:text-primary font-medium">
+                <Link href="/sgdf-crowdfunding" className="text-foreground hover:text-primary font-medium">
                   Accueil
                 </Link>
                 <Link href="/projects" className="text-foreground hover:text-primary font-medium">
