@@ -10,7 +10,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { Search, Filter, Heart, TrendingUp, Clock, User, LogOut, Settings } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
-import { getAssetPath, getImagePath } from "@/lib/utils"
+import { getAssetPath, getImagePath, getProjectMainImage } from "@/lib/utils"
 
 const investmentProjectsAdvanced = [
   {
@@ -18,7 +18,8 @@ const investmentProjectsAdvanced = [
     title: "Rénovation du local scout de Toulouse",
     description:
       "Nos Pionniers-Caravelles rénovent entièrement notre local : peinture, électricité et aménagement d'une salle d'activités.",
-    image: getImagePath("/renovation_local_scout_toulouse.png"),
+    image: getImagePath(getProjectMainImage("renovation-local-toulouse")),
+    slug: "renovation-local-toulouse",
     category: "Investissement",
     location: "Toulouse, Haute-Garonne",
     targetAmount: 8500,
@@ -32,7 +33,8 @@ const investmentProjectsAdvanced = [
     title: "Achat d'un minibus pour le groupe",
     description:
       "Acquisition d'un véhicule 9 places pour faciliter les déplacements lors des sorties et week-ends scouts en région parisienne.",
-    image: getImagePath("/minibus_pour_le_groupe.png"),
+    image: getImagePath(getProjectMainImage("minibus-groupe")),
+    slug: "minibus-groupe",
     category: "Investissement",
     location: "Créteil, Val-de-Marne",
     targetAmount: 18000,
@@ -45,7 +47,8 @@ const investmentProjectsAdvanced = [
     id: "3",
     title: "Matériel de camping pour la troupe",
     description: "Renouvellement des tentes, réchauds et matériel de cuisine pour les camps scouts en Bretagne.",
-    image: getImagePath("/camping_materiels.png"),
+    image: getImagePath(getProjectMainImage("materiel-camping-troupe")),
+    slug: "materiel-camping-troupe",
     category: "Investissement",
     location: "Rennes, Ille-et-Vilaine",
     targetAmount: 2800,
@@ -62,7 +65,8 @@ const investmentProjectsRecent = [
     title: "Équipement nautique pour les marins",
     description:
       "Achat de kayaks et matériel de sécurité pour les activités nautiques de notre groupe marin bordelais.",
-    image: getImagePath("/equipement_nautique.png"),
+    image: getImagePath(getProjectMainImage("equipement-nautique-marins")),
+    slug: "equipement-nautique-marins",
     category: "Investissement",
     location: "Bordeaux, Gironde",
     targetAmount: 5200,
@@ -76,7 +80,8 @@ const investmentProjectsRecent = [
     title: "Rénovation du chalet de montagne",
     description:
       "Travaux d'isolation et de chauffage de notre chalet dans les Alpes pour accueillir les camps d'hiver.",
-    image: getImagePath("/chalet_de_montagne.png"),
+    image: getImagePath(getProjectMainImage("renovation-chalet-montagne")),
+    slug: "renovation-chalet-montagne",
     category: "Investissement",
     location: "Chamonix, Haute-Savoie",
     targetAmount: 12000,
@@ -89,7 +94,8 @@ const investmentProjectsRecent = [
     id: "6",
     title: "Sono et matériel audiovisuel",
     description: "Équipement pour les spectacles et veillées de notre groupe parisien.",
-    image: getImagePath("/materiel_audiovisuel.png"),
+    image: getImagePath(getProjectMainImage("sono-materiel-audiovisuel")),
+    slug: "sono-materiel-audiovisuel",
     category: "Investissement",
     location: "Paris 15e, Paris",
     targetAmount: 3500,
@@ -106,7 +112,8 @@ const activityProjects = [
     title: "Camp d'été Louveteaux-Jeannettes en Ardèche",
     description:
       "Financement du camp d'été de notre meute et compagnie pour 8 jours dans les gorges de l'Ardèche avec canoë et grands jeux nature.",
-    image: getImagePath("/ardèche.png"),
+    image: getImagePath(getProjectMainImage("camp-ete-ardeche")),
+    slug: "camp-ete-ardeche",
     category: "Activité",
     location: "Vallon-Pont-d'Arc, Ardèche",
     targetAmount: 4500,
@@ -119,7 +126,8 @@ const activityProjects = [
     id: "8",
     title: "Formation BAFA pour nos chefs",
     description: "Financement de la formation BAFA pour 6 nouveaux chefs et cheftaines du groupe lyonnais.",
-    image: getImagePath("/formation_bafa.png"),
+    image: getImagePath(getProjectMainImage("formation-bafa")),
+    slug: "formation-bafa",
     category: "Formation",
     location: "Lyon, Rhône",
     targetAmount: 3600,
@@ -133,7 +141,8 @@ const activityProjects = [
     title: "Jardin pédagogique pour les Farfadets",
     description:
       "Création d'un potager éducatif dans notre jardin alsacien pour sensibiliser nos plus jeunes à l'écologie.",
-    image: getImagePath("/jardin_pedagogique.png"),
+    image: getImagePath(getProjectMainImage("jardin-pedagogique-farfadets")),
+    slug: "jardin-pedagogique-farfadets",
     category: "Activité",
     location: "Strasbourg, Bas-Rhin",
     targetAmount: 1500,
@@ -146,7 +155,8 @@ const activityProjects = [
     id: "10",
     title: "Week-end découverte nature",
     description: "Sortie éducative en forêt de Fontainebleau pour nos scouts et guides franciliens.",
-    image: getImagePath("/camping_materiels.png"),
+    image: getImagePath(getProjectMainImage("weekend-nature-fontainebleau")),
+    slug: "weekend-nature-fontainebleau",
     category: "Activité",
     location: "Fontainebleau, Seine-et-Marne",
     targetAmount: 800,
@@ -162,7 +172,8 @@ const myStructureProjects = [
     id: "11",
     title: "Camp d'été de notre groupe",
     description: "Financement du camp d'été 2025 de notre groupe local avec activités nature et grands jeux.",
-    image: getImagePath("/ardèche.png"),
+    image: getImagePath(getProjectMainImage("camp-ete-groupe-local")),
+    slug: "camp-ete-groupe-local",
     category: "Investissement",
     location: "Ma structure locale",
     targetAmount: 6500,
@@ -178,7 +189,8 @@ const parentStructureProjects = [
     id: "12",
     title: "Formation territoriale des chefs",
     description: "Programme de formation continue pour les responsables de notre territoire.",
-    image: getImagePath("/formation_bafa.png"),
+    image: getImagePath(getProjectMainImage("formation-territoriale")),
+    slug: "formation-territoriale",
     category: "Formation",
     location: "Territoire de rattachement",
     targetAmount: 4200,
@@ -194,7 +206,8 @@ const nationalProjects = [
     id: "13",
     title: "Jamboree Scout Mondial 2027",
     description: "Participation de la délégation française au Jamboree Scout Mondial en Pologne.",
-    image: getImagePath("/ardèche.png"),
+    image: getImagePath(getProjectMainImage("jamboree-mondial-2027")),
+    slug: "jamboree-mondial-2027",
     category: "Investissement",
     location: "National - International",
     targetAmount: 25000,

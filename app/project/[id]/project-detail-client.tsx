@@ -33,124 +33,59 @@ import {
   CheckCircle,
   AlertTriangle,
 } from "lucide-react"
-import { getAssetPath, getImagePath } from "@/lib/utils"
+import { getAssetPath, getImagePath, getProjectImages } from "@/lib/utils"
+import { getProjectById, Project } from "@/lib/projects-data"
 
-// Mock data for the project
-const projectData = {
-  id: "1",
-  title: "Camp d'été Louveteaux-Jeannettes à Chamonix",
-  description:
-    "Notre meute et compagnie organisent un camp d'été de 8 jours dans les Alpes pour 24 jeunes de 8 à 11 ans. Au programme : randonnées adaptées, grands jeux en montagne, veillées et découverte de la faune alpine.",
-  longDescription: `
-    <h3>Contexte du projet</h3>
-    <p>Chaque été, notre groupe organise un camp pour nos Louveteaux et Jeannettes. Cette année, nous avons choisi Chamonix pour faire découvrir la montagne à nos 24 jeunes âgés de 8 à 11 ans.</p>
-
-    <h3>Programme du camp</h3>
-    <ul>
-      <li>Randonnées pédestres adaptées aux plus jeunes avec découverte de la faune et flore alpine</li>
-      <li>Grands jeux sur le thème du Livre de la Jungle dans un cadre exceptionnel</li>
-      <li>Ateliers manuels : construction de cabanes, land art avec éléments naturels</li>
-      <li>Veillées autour du feu avec contes et chants scouts</li>
-      <li>Initiation à l'escalade sur site adapté avec moniteurs brevetés</li>
-      <li>Visite de la Mer de Glace et découverte des glaciers</li>
-    </ul>
-
-    <h3>Objectifs pédagogiques</h3>
-    <ul>
-      <li>Développer l'autonomie et la confiance en soi</li>
-      <li>Sensibiliser à la protection de l'environnement montagnard</li>
-      <li>Favoriser la vie en communauté et l'entraide</li>
-      <li>Découvrir un nouveau territoire et ses spécificités</li>
-    </ul>
-  `,
-  goal: 8500,
-  raised: 5200,
-  daysLeft: 45,
-  contributors: 87,
-  images: [
-    "/api/placeholder/800/400",
-    "/api/placeholder/800/400",
-    "/api/placeholder/800/400",
-  ],
-  location: "Chamonix, Haute-Savoie",
-  category: "Activité",
-  organizer: "Groupe Saint-Michel - Paris 15e",
-  dateCreated: "2024-12-15",
-  isPublic: true,
-  updates: [
-    {
-      id: 1,
-      date: "2024-12-20",
-      title: "Réservation du centre d'hébergement confirmée",
-      content:
-        "Bonne nouvelle ! Nous avons confirmé la réservation de notre centre d'hébergement à Chamonix. Les 24 jeunes seront logés dans des chambres de 4 avec sanitaires complets.",
-      author: "Marie Dubois",
-      avatar: "/api/placeholder/40/40",
-    },
-    {
-      id: 2,
-      date: "2024-12-18",
-      title: "Planning des activités finalisé",
-      content:
-        "Le planning détaillé du camp est maintenant prêt ! Nous avons prévu un bel équilibre entre activités sportives, découvertes culturelles et temps de vie de camp.",
-      author: "Pierre Martin",
-      avatar: "/api/placeholder/40/40",
-    },
-  ],
-  documents: [
-    { name: "Budget détaillé", type: "pdf", size: "245 Ko" },
-    { name: "Programme complet", type: "pdf", size: "182 Ko" },
-    { name: "Autorisation sortie territoire", type: "pdf", size: "95 Ko" },
-  ],
-  comments: [
-    {
-      id: 1,
-      author: "Sophie Leroy",
-      avatar: "/api/placeholder/40/40",
-      date: "2024-12-19",
-      content:
-        "Magnifique projet ! Mes enfants ont participé au camp l'année dernière et ils en gardent un souvenir inoubliable. Je soutiens à 100% !",
-      replies: [
-        {
-          id: 11,
-          author: "Marie Dubois",
-          avatar: "/api/placeholder/40/40",
-          date: "2024-12-19",
-          content:
-            "Merci Sophie ! C'est grâce au soutien de parents comme vous que nos jeunes peuvent vivre ces belles aventures.",
-        },
-      ],
-    },
-    {
-      id: 2,
-      author: "Thomas Bernard",
-      avatar: "/api/placeholder/40/40",
-      date: "2024-12-18",
-      content:
-        "En tant qu'ancien scout, je trouve formidable de voir que l'esprit du scoutisme perdure. Bravo pour cette initiative !",
-    },
-    {
-      id: 3,
-      author: "Claire Moreau",
-      avatar: "/api/placeholder/40/40",
-      date: "2024-12-17",
-      content:
-        "Le programme semble très riche ! Avez-vous prévu des activités en cas de mauvais temps ?",
-      replies: [
-        {
-          id: 31,
-          author: "Pierre Martin",
-          avatar: "/api/placeholder/40/40",
-          date: "2024-12-17",
-          content:
-            "Excellente question Claire ! Nous avons effectivement prévu des activités en intérieur : ateliers créatifs, jeux coopératifs, et même une chasse au trésor dans le centre d'hébergement.",
-        },
-      ],
-    },
-  ],
-}
+// Fonction pour obtenir les données par défaut si le projet n'existe pas
+const getDefaultProjectData = (): Project => ({
+  id: "404",
+  title: "Projet non trouvé",
+  description: "Le projet demandé n'existe pas ou a été supprimé.",
+  longDescription: "<p>Ce projet n'a pas pu être chargé.</p>",
+  image: "/placeholder.svg",
+  slug: "404",
+  category: "Erreur",
+  location: "Inconnu",
+  targetAmount: 0,
+  currentAmount: 0,
+  daysLeft: 0,
+  supportersCount: 0,
+  branch: "Inconnu",
+  images: [],
+  updates: [],
+  documents: [],
+  comments: []
+})
 
 export default function ProjectDetailClient({ params }: { params: { id: string } }) {
+  // Récupérer les données du projet selon l'ID
+  const projectData = getProjectById(params.id) || getDefaultProjectData()
+
+  // Si le projet n'existe pas, afficher une erreur
+  if (projectData.id === "404") {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-primary mb-4">Projet non trouvé</h1>
+          <p className="text-muted-foreground mb-6">Le projet avec l'ID "{params.id}" n'existe pas.</p>
+          <Button asChild>
+            <a href={getAssetPath("/projects")}>Retour aux projets</a>
+          </Button>
+        </div>
+      </div>
+    )
+  }
+
+  // Variables calculées
+  const goal = projectData.goal || projectData.targetAmount
+  const raised = projectData.raised || projectData.currentAmount
+  const contributors = projectData.contributors || projectData.supportersCount
+
+  const updates = projectData.updates || []
+  const documents = projectData.documents || []
+  const comments = projectData.comments || []
+  const images = projectData.images || []
+
   const [donationAmount, setDonationAmount] = useState("")
   const [donorName, setDonorName] = useState("")
   const [donorEmail, setDonorEmail] = useState("")
@@ -163,10 +98,10 @@ export default function ProjectDetailClient({ params }: { params: { id: string }
   const [replyingTo, setReplyingTo] = useState<number | null>(null)
   const [replyText, setReplyText] = useState("")
 
-  const progress = Math.round((projectData.raised / projectData.goal) * 100)
+  const progress = Math.round((raised / goal) * 100)
   const displayedComments = showAllComments
-    ? projectData.comments
-    : projectData.comments.slice(0, 2)
+    ? comments
+    : comments.slice(0, 2)
 
   const handleDonation = () => {
     console.log("Donation submitted:", {
@@ -234,40 +169,66 @@ export default function ProjectDetailClient({ params }: { params: { id: string }
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="container mx-auto px-4 pb-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left Column - Project Details */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Back Button */}
-            <Button variant="outline" size="sm" asChild className="w-fit">
-              <a href={getAssetPath("/projects")}>
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Retour aux projets
-              </a>
-            </Button>
-
-            {/* Project Header */}
-            <div>
-              <div className="flex flex-wrap items-center gap-2 mb-4">
-                <Badge>{projectData.category}</Badge>
-                <div className="flex items-center text-sm text-gray-600">
-                  <MapPin className="w-4 h-4 mr-1" />
-                  {projectData.location}
+          {/* Main Content */}
+          <div className="lg:col-span-2">
+            {/* Project Gallery */}
+            <div className="bg-white rounded-lg shadow-sm mb-8 overflow-hidden">
+              {images.length > 0 ? (
+                <>
+                  <div className="relative h-96">
+                    <img
+                      src={getImagePath(images[currentImageIndex])}
+                      alt={projectData.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <div className="flex space-x-2 overflow-x-auto">
+                      {images.map((image, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setCurrentImageIndex(index)}
+                          className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 ${
+                            currentImageIndex === index ? "border-primary" : "border-gray-200"
+                          }`}
+                        >
+                          <img src={getImagePath(image)} alt={`Aperçu ${index + 1}`} className="w-full h-full object-cover" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="h-96 bg-gray-200 flex items-center justify-center">
+                  <p className="text-gray-500">Aucune image disponible</p>
                 </div>
-              </div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-4">{projectData.title}</h1>
-              <div className="flex items-center justify-between mb-6">
-                <p className="text-gray-600">{projectData.organizer}</p>
-                <div className="flex items-center space-x-2">
+              )}
+            </div>
+
+            {/* Project Details */}
+            <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+              <div className="flex items-start justify-between mb-6">
+                <div>
+                  <h1 className="text-3xl font-bold text-gray-900 mb-2">{projectData.title}</h1>
+                  <div className="flex items-center space-x-4 text-gray-600">
+                    <div className="flex items-center space-x-1">
+                      <MapPin className="w-4 h-4" />
+                      <span>{projectData.location}</span>
+                    </div>
+                    <Badge variant="secondary">{projectData.category}</Badge>
+                  </div>
+                </div>
+                <div className="flex space-x-2">
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => setIsFavorite(!isFavorite)}
-                    className={isFavorite ? "bg-red-50 border-red-200 text-red-600" : ""}
+                    className={isFavorite ? "text-red-600 border-red-600" : ""}
                   >
                     <Heart className={`w-4 h-4 mr-2 ${isFavorite ? "fill-current" : ""}`} />
-                    {isFavorite ? "Favori" : "Favoris"}
+                    {isFavorite ? "Retiré" : "Favori"}
                   </Button>
                   <Button variant="outline" size="sm">
                     <Share2 className="w-4 h-4 mr-2" />
@@ -275,377 +236,343 @@ export default function ProjectDetailClient({ params }: { params: { id: string }
                   </Button>
                 </div>
               </div>
-            </div>
 
-            {/* Image Gallery */}
-            <div className="space-y-4">
-              <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden">
-                <img
-                  src={getImagePath(projectData.images[currentImageIndex])}
-                  alt={`Image ${currentImageIndex + 1}`}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              {projectData.images.length > 1 && (
-                <div className="flex space-x-2">
-                  {projectData.images.map((image, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentImageIndex(index)}
-                      className={`flex-1 aspect-video bg-gray-200 rounded-lg overflow-hidden border-2 ${
-                        currentImageIndex === index ? "border-primary" : "border-transparent"
-                      }`}
-                    >
-                      <img src={getImagePath(image)} alt={`Aperçu ${index + 1}`} className="w-full h-full object-cover" />
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+              <p className="text-gray-600 text-lg mb-8">{projectData.description}</p>
 
-            {/* Tabs Content */}
-            <Tabs defaultValue="description" className="w-full">
-              <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="description">Description</TabsTrigger>
-                <TabsTrigger value="updates">Actualités</TabsTrigger>
-                <TabsTrigger value="documents">Documents</TabsTrigger>
-                <TabsTrigger value="comments">Commentaires</TabsTrigger>
-              </TabsList>
+              {/* Project Details Tabs */}
+              <Tabs defaultValue="description" className="w-full">
+                <TabsList className="grid w-full grid-cols-3">
+                  <TabsTrigger value="description">Description</TabsTrigger>
+                  <TabsTrigger value="updates">
+                    Actualités ({updates.length})
+                  </TabsTrigger>
+                  <TabsTrigger value="documents">
+                    Documents ({documents.length})
+                  </TabsTrigger>
+                </TabsList>
 
-              <TabsContent value="description" className="mt-6">
-                <Card>
-                  <CardContent className="p-6">
-                    <div
-                      className="prose prose-sm max-w-none"
-                      dangerouslySetInnerHTML={{ __html: projectData.longDescription }}
-                    />
-                  </CardContent>
-                </Card>
-              </TabsContent>
+                <TabsContent value="description" className="mt-6">
+                  <div
+                    className="prose max-w-none"
+                    dangerouslySetInnerHTML={{ __html: projectData.longDescription || projectData.description }}
+                  />
+                </TabsContent>
 
-              <TabsContent value="updates" className="mt-6">
-                <div className="space-y-4">
-                  {projectData.updates.map((update) => (
-                    <Card key={update.id}>
-                      <CardContent className="p-6">
-                        <div className="flex items-start space-x-4">
-                          <Avatar>
-                            <AvatarImage src={getImagePath(update.avatar)} />
-                            <AvatarFallback>{update.author.split(" ").map((n) => n[0]).join("")}</AvatarFallback>
-                          </Avatar>
-                          <div className="flex-1">
-                            <div className="flex items-center space-x-2 mb-2">
-                              <h4 className="font-medium">{update.title}</h4>
-                              <span className="text-sm text-gray-500">
-                                {new Date(update.date).toLocaleDateString("fr-FR")}
-                              </span>
-                            </div>
-                            <p className="text-gray-600 mb-2">{update.content}</p>
-                            <p className="text-sm text-gray-500">Par {update.author}</p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </TabsContent>
-
-              <TabsContent value="documents" className="mt-6">
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="space-y-4">
-                      {projectData.documents.map((doc, index) => (
-                        <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
-                          <div className="flex items-center space-x-3">
-                            <FileText className="w-8 h-8 text-red-600" />
-                            <div>
-                              <h4 className="font-medium">{doc.name}</h4>
-                              <p className="text-sm text-gray-500">{doc.type.toUpperCase()} • {doc.size}</p>
+                <TabsContent value="updates" className="mt-6">
+                  <div className="space-y-4">
+                    {updates.length > 0 ? updates.map((update) => (
+                      <Card key={update.id}>
+                        <CardContent className="p-6">
+                          <div className="flex items-start space-x-4">
+                            <Avatar>
+                              <AvatarImage src={getImagePath(update.avatar)} />
+                              <AvatarFallback>{update.author.split(" ").map((n) => n[0]).join("")}</AvatarFallback>
+                            </Avatar>
+                            <div className="flex-1">
+                              <div className="flex items-center space-x-2 mb-2">
+                                <h4 className="font-medium">{update.title}</h4>
+                                <span className="text-sm text-gray-500">
+                                  {new Date(update.date).toLocaleDateString("fr-FR")}
+                                </span>
+                              </div>
+                              <p className="text-gray-600 mb-2">{update.content}</p>
+                              <p className="text-sm text-gray-500">Par {update.author}</p>
                             </div>
                           </div>
-                          <Button variant="outline" size="sm">
-                            <Download className="w-4 h-4 mr-2" />
-                            Télécharger
-                          </Button>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
+                        </CardContent>
+                      </Card>
+                    )) : (
+                      <p className="text-center text-gray-500 py-8">Aucune actualité pour le moment</p>
+                    )}
+                  </div>
+                </TabsContent>
 
-              <TabsContent value="comments" className="mt-6">
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="space-y-6">
-                      {/* Comment Form */}
-                      <div>
-                        <Label htmlFor="comment" className="text-base font-medium">
-                          Laisser un commentaire
-                        </Label>
-                        <Textarea
-                          id="comment"
-                          placeholder="Partagez vos encouragements ou vos questions..."
-                          value={newComment}
-                          onChange={(e) => setNewComment(e.target.value)}
-                          className="mt-2"
-                          rows={4}
-                        />
-                        <Button onClick={handleCommentSubmit} className="mt-3">
-                          <Send className="w-4 h-4 mr-2" />
-                          Publier le commentaire
-                        </Button>
+                <TabsContent value="documents" className="mt-6">
+                  <Card>
+                    <CardContent className="p-6">
+                      <div className="space-y-4">
+                        {documents.length > 0 ? documents.map((doc, index) => (
+                          <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
+                            <div className="flex items-center space-x-3">
+                              <FileText className="w-8 h-8 text-red-600" />
+                              <div>
+                                <h4 className="font-medium">{doc.name}</h4>
+                                <p className="text-sm text-gray-500">{doc.type.toUpperCase()} • {doc.size}</p>
+                              </div>
+                            </div>
+                            <Button variant="outline" size="sm">
+                              <Download className="w-4 h-4 mr-2" />
+                              Télécharger
+                            </Button>
+                          </div>
+                        )) : (
+                          <p className="text-center text-gray-500 py-8">Aucun document disponible</p>
+                        )}
                       </div>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+              </Tabs>
+            </div>
 
-                      {/* Comments List */}
-                      <div className="space-y-6">
-                        {displayedComments.map((comment) => (
-                          <div key={comment.id} className="border-t pt-6">
-                            <div className="flex items-start space-x-4">
-                              <Avatar>
-                                <AvatarImage src={getImagePath(comment.avatar)} />
-                                <AvatarFallback>
-                                  {comment.author.split(" ").map((n) => n[0]).join("")}
+            {/* Comments Section */}
+            <div className="bg-white rounded-lg shadow-sm p-8">
+              <h3 className="text-xl font-semibold mb-6 flex items-center">
+                <MessageCircle className="w-5 h-5 mr-2" />
+                Commentaires ({comments.length})
+              </h3>
+
+              {/* Add Comment Form */}
+              <Card className="mb-6">
+                <CardContent className="p-4">
+                  <Textarea
+                    placeholder="Ajoutez votre commentaire..."
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    className="mb-3"
+                    rows={3}
+                  />
+                  <div className="flex justify-between items-center">
+                    <div className="text-sm text-gray-500">
+                      <Lock className="w-4 h-4 inline mr-1" />
+                      Commentaire public
+                    </div>
+                    <Button onClick={handleCommentSubmit} disabled={!newComment.trim()}>
+                      <Send className="w-4 h-4 mr-2" />
+                      Publier
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Comments List */}
+              <div className="space-y-6">
+                {comments.length > 0 ? displayedComments.map((comment) => (
+                  <div key={comment.id} className="border-l-2 border-gray-100 pl-4">
+                    <div className="flex items-start space-x-3">
+                      <Avatar className="w-8 h-8">
+                        <AvatarImage src={getImagePath(comment.avatar)} />
+                        <AvatarFallback>{comment.author.split(" ").map((n) => n[0]).join("")}</AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-2 mb-1">
+                          <span className="font-medium text-sm">{comment.author}</span>
+                          <span className="text-xs text-gray-500">
+                            {new Date(comment.date).toLocaleDateString("fr-FR")}
+                          </span>
+                        </div>
+                        <p className="text-gray-700 text-sm mb-2">{comment.content}</p>
+                        <div className="flex space-x-3 text-xs">
+                          <button
+                            onClick={() => setReplyingTo(comment.id)}
+                            className="text-primary hover:underline flex items-center"
+                          >
+                            <Reply className="w-3 h-3 mr-1" />
+                            Répondre
+                          </button>
+                        </div>
+
+                        {/* Reply Form */}
+                        {replyingTo === comment.id && (
+                          <div className="mt-3 bg-gray-50 rounded-lg p-3">
+                            <Textarea
+                              placeholder="Votre réponse..."
+                              value={replyText}
+                              onChange={(e) => setReplyText(e.target.value)}
+                              rows={2}
+                              className="mb-2"
+                            />
+                            <div className="flex justify-end space-x-2">
+                              <Button variant="outline" size="sm" onClick={() => setReplyingTo(null)}>
+                                Annuler
+                              </Button>
+                              <Button
+                                size="sm"
+                                onClick={() => handleReplySubmit(comment.id)}
+                                disabled={!replyText.trim()}
+                              >
+                                Répondre
+                              </Button>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Replies */}
+                        {comment.replies && comment.replies.map((reply) => (
+                          <div key={reply.id} className="mt-4 ml-6 border-l border-gray-100 pl-3">
+                            <div className="flex items-start space-x-2">
+                              <Avatar className="w-6 h-6">
+                                <AvatarImage src={getImagePath(reply.avatar)} />
+                                <AvatarFallback className="text-xs">
+                                  {reply.author.split(" ").map((n) => n[0]).join("")}
                                 </AvatarFallback>
                               </Avatar>
                               <div className="flex-1">
-                                <div className="flex items-center space-x-2 mb-2">
-                                  <h4 className="font-medium">{comment.author}</h4>
-                                  <span className="text-sm text-gray-500">
-                                    {new Date(comment.date).toLocaleDateString("fr-FR")}
+                                <div className="flex items-center space-x-2 mb-1">
+                                  <span className="font-medium text-xs">{reply.author}</span>
+                                  <span className="text-xs text-gray-500">
+                                    {new Date(reply.date).toLocaleDateString("fr-FR")}
                                   </span>
                                 </div>
-                                <p className="text-gray-700 mb-3">{comment.content}</p>
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  onClick={() => setReplyingTo(comment.id)}
-                                  className="text-primary hover:text-primary/80"
-                                >
-                                  <Reply className="w-4 h-4 mr-2" />
-                                  Répondre
-                                </Button>
-
-                                {/* Reply Form */}
-                                {replyingTo === comment.id && (
-                                  <div className="mt-4 ml-4 border-l-2 border-gray-200 pl-4">
-                                    <Textarea
-                                      placeholder="Votre réponse..."
-                                      value={replyText}
-                                      onChange={(e) => setReplyText(e.target.value)}
-                                      className="mb-3"
-                                      rows={3}
-                                    />
-                                    <div className="flex space-x-2">
-                                      <Button size="sm" onClick={() => handleReplySubmit(comment.id)}>
-                                        <Send className="w-4 h-4 mr-2" />
-                                        Répondre
-                                      </Button>
-                                      <Button variant="outline" size="sm" onClick={() => setReplyingTo(null)}>
-                                        Annuler
-                                      </Button>
-                                    </div>
-                                  </div>
-                                )}
-
-                                {/* Replies */}
-                                {comment.replies && comment.replies.length > 0 && (
-                                  <div className="mt-4 ml-4 border-l-2 border-gray-200 pl-4 space-y-4">
-                                    {comment.replies.map((reply) => (
-                                      <div key={reply.id} className="flex items-start space-x-3">
-                                        <Avatar className="w-8 h-8">
-                                          <AvatarImage src={getImagePath(reply.avatar)} />
-                                          <AvatarFallback>
-                                            {reply.author.split(" ").map((n) => n[0]).join("")}
-                                          </AvatarFallback>
-                                        </Avatar>
-                                        <div className="flex-1">
-                                          <div className="flex items-center space-x-2 mb-1">
-                                            <h5 className="font-medium text-sm">{reply.author}</h5>
-                                            <span className="text-xs text-gray-500">
-                                              {new Date(reply.date).toLocaleDateString("fr-FR")}
-                                            </span>
-                                          </div>
-                                          <p className="text-sm text-gray-700">{reply.content}</p>
-                                        </div>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
+                                <p className="text-gray-700 text-xs">{reply.content}</p>
                               </div>
                             </div>
                           </div>
                         ))}
-
-                        {/* Show More Comments Button */}
-                        {projectData.comments.length > 2 && (
-                          <div className="text-center">
-                            <Button
-                              variant="outline"
-                              onClick={() => setShowAllComments(!showAllComments)}
-                            >
-                              {showAllComments
-                                ? "Voir moins de commentaires"
-                                : `Voir tous les commentaires (${projectData.comments.length})`}
-                            </Button>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            </Tabs>
-          </div>
-
-          {/* Right Column - Donation Card */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-8">
-              <Card>
-                <CardContent className="p-6">
-                  <div className="text-center mb-6">
-                    <div className="text-3xl font-bold text-primary mb-1">
-                      {projectData.raised.toLocaleString("fr-FR")} €
-                    </div>
-                    <div className="text-gray-600 mb-4">collectés sur {projectData.goal.toLocaleString("fr-FR")} €</div>
-                    <Progress value={progress} className="h-3 mb-4" />
-                    <div className="grid grid-cols-3 gap-4 text-center">
-                      <div>
-                        <div className="text-2xl font-bold text-primary">{progress}%</div>
-                        <div className="text-sm text-gray-600">de l'objectif</div>
-                      </div>
-                      <div>
-                        <div className="text-2xl font-bold text-primary">{projectData.contributors}</div>
-                        <div className="text-sm text-gray-600">contributeurs</div>
-                      </div>
-                      <div>
-                        <div className="text-2xl font-bold text-primary">{projectData.daysLeft}</div>
-                        <div className="text-sm text-gray-600">jours restants</div>
                       </div>
                     </div>
                   </div>
+                )) : (
+                  <p className="text-center text-gray-500 py-8">Aucun commentaire pour le moment. Soyez le premier à commenter !</p>
+                )}
 
+                {comments.length > 2 && !showAllComments && (
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowAllComments(true)}
+                    className="w-full"
+                  >
+                    Voir tous les commentaires ({comments.length})
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Sidebar */}
+          <div className="lg:col-span-1">
+            {/* Funding Progress */}
+            <div className="bg-white rounded-lg shadow-sm p-6 mb-6 sticky top-6">
+              <div className="text-center mb-6">
+                <div className="text-3xl font-bold text-primary mb-2">
+                  {raised.toLocaleString("fr-FR")} €
+                </div>
+                <div className="text-gray-600 mb-4">sur {goal.toLocaleString("fr-FR")} € collectés</div>
+                <Progress value={progress} className="mb-4" />
+                <div className="flex justify-between text-sm text-gray-600 mb-6">
+                  <span>{progress}% financé</span>
+                  <span>{projectData.daysLeft} jours restants</span>
+                </div>
+                <div className="flex items-center justify-center space-x-4 text-sm text-gray-600 mb-6">
+                  <div className="flex items-center">
+                    <Users className="w-4 h-4 mr-1" />
+                    {contributors} contributeurs
+                  </div>
+                </div>
+              </div>
+
+              {/* Donation Form */}
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button className="w-full mb-4" size="lg">
+                    <Heart className="w-4 h-4 mr-2" />
+                    Soutenir ce projet
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>Soutenir le projet</DialogTitle>
+                  </DialogHeader>
                   <div className="space-y-4">
                     <div>
-                      <Label htmlFor="amount">Montant du don (€)</Label>
+                      <Label htmlFor="amount">Montant du don</Label>
                       <Input
                         id="amount"
                         type="number"
+                        placeholder="50"
                         value={donationAmount}
                         onChange={(e) => setDonationAmount(e.target.value)}
-                        placeholder="Montant en euros"
                       />
                     </div>
-
-                    <div className="grid grid-cols-3 gap-2">
-                      {[20, 50, 100].map((amount) => (
-                        <Button
-                          key={amount}
-                          variant="outline"
-                          size="sm"
-                          onClick={() => setDonationAmount(amount.toString())}
-                          className="text-sm"
-                        >
-                          {amount} €
-                        </Button>
-                      ))}
-                    </div>
-
                     <div>
-                      <Label htmlFor="donor-name">Nom (optionnel)</Label>
+                      <Label htmlFor="name">Nom</Label>
                       <Input
-                        id="donor-name"
+                        id="name"
+                        placeholder="Votre nom"
                         value={donorName}
                         onChange={(e) => setDonorName(e.target.value)}
-                        placeholder="Votre nom"
-                        disabled={isAnonymous}
                       />
                     </div>
-
                     <div>
-                      <Label htmlFor="donor-email">Email</Label>
+                      <Label htmlFor="email">Email</Label>
                       <Input
-                        id="donor-email"
+                        id="email"
                         type="email"
+                        placeholder="votre@email.com"
                         value={donorEmail}
                         onChange={(e) => setDonorEmail(e.target.value)}
-                        placeholder="votre@email.com"
                       />
                     </div>
-
+                    <div>
+                      <Label htmlFor="message">Message (optionnel)</Label>
+                      <Textarea
+                        id="message"
+                        placeholder="Votre message de soutien..."
+                        value={donorMessage}
+                        onChange={(e) => setDonorMessage(e.target.value)}
+                        rows={3}
+                      />
+                    </div>
                     <div className="flex items-center space-x-2">
                       <input
                         type="checkbox"
                         id="anonymous"
                         checked={isAnonymous}
                         onChange={(e) => setIsAnonymous(e.target.checked)}
-                        className="rounded border-gray-300"
                       />
                       <Label htmlFor="anonymous" className="text-sm">
                         Don anonyme
                       </Label>
                     </div>
-
-                    <div>
-                      <Label htmlFor="donor-message">Message de soutien (optionnel)</Label>
-                      <Textarea
-                        id="donor-message"
-                        value={donorMessage}
-                        onChange={(e) => setDonorMessage(e.target.value)}
-                        placeholder="Un mot d'encouragement..."
-                        rows={3}
-                      />
-                    </div>
-
-                    <Button
-                      onClick={handleDonation}
-                      className="w-full bg-primary hover:bg-primary/90"
-                      disabled={!donationAmount || !donorEmail}
-                    >
+                    <Button onClick={handleDonation} className="w-full">
                       <Euro className="w-4 h-4 mr-2" />
-                      Faire un don de {donationAmount || "..."} €
+                      Confirmer le don
                     </Button>
-
-                    <div className="text-center text-xs text-gray-500">
-                      <Lock className="w-4 h-4 mx-auto mb-1" />
-                      Paiement 100% sécurisé
-                    </div>
                   </div>
-                </CardContent>
-              </Card>
+                </DialogContent>
+              </Dialog>
 
-              {/* Project Info */}
-              <Card className="mt-6">
-                <CardContent className="p-6">
-                  <h3 className="font-semibold mb-4">Informations sur le projet</h3>
-                  <div className="space-y-3 text-sm">
-                    <div className="flex items-center justify-between">
-                      <span className="text-gray-600">Catégorie</span>
-                      <Badge variant="outline">{projectData.category}</Badge>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-gray-600">Créé le</span>
-                      <span>{new Date(projectData.dateCreated).toLocaleDateString("fr-FR")}</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-gray-600">Visibilité</span>
-                      <span className="flex items-center">
-                        {projectData.isPublic ? (
-                          <>
-                            <Unlock className="w-4 h-4 mr-1 text-green-600" />
-                            Public
-                          </>
-                        ) : (
-                          <>
-                            <Lock className="w-4 h-4 mr-1 text-red-600" />
-                            Privé
-                          </>
-                        )}
-                      </span>
-                    </div>
+              <div className="text-center">
+                <p className="text-xs text-gray-500">
+                  Paiement sécurisé • Reçu fiscal automatique
+                </p>
+              </div>
+            </div>
+
+            {/* Project Info */}
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <h3 className="font-semibold mb-4">Informations du projet</h3>
+              <div className="space-y-3 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Organisateur</span>
+                  <span className="font-medium">{projectData.organizer || "Non spécifié"}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Branche</span>
+                  <Badge variant="outline" className="text-xs">
+                    {projectData.branch}
+                  </Badge>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Date de création</span>
+                  <span className="font-medium">
+                    {projectData.dateCreated ? new Date(projectData.dateCreated).toLocaleDateString("fr-FR") : "Non spécifiée"}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Visibilité</span>
+                  <div className="flex items-center">
+                    {projectData.isPublic ? (
+                      <Unlock className="w-3 h-3 mr-1" />
+                    ) : (
+                      <Lock className="w-3 h-3 mr-1" />
+                    )}
+                    <span className="font-medium">
+                      {projectData.isPublic ? "Public" : "Privé"}
+                    </span>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </div>
           </div>
         </div>

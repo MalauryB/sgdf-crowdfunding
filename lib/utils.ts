@@ -32,6 +32,31 @@ export function getImagePath(path: string): string {
 }
 
 /**
+ * Génère le chemin de l'image principale d'un projet (image_1)
+ * @param projectSlug - Le slug du projet (ex: "camp-ete-ardeche")
+ * @param extension - L'extension du fichier (par défaut "png")
+ * @returns Le chemin vers l'image principale du projet
+ */
+export function getProjectMainImage(projectSlug: string, extension: string = 'png'): string {
+  return `/projects/${projectSlug}/image_1.${extension}`;
+}
+
+/**
+ * Génère la liste des chemins d'images d'un projet pour la galerie
+ * @param projectSlug - Le slug du projet
+ * @param imageCount - Nombre d'images disponibles
+ * @param extension - L'extension des fichiers (par défaut "png")
+ * @returns Un tableau des chemins d'images
+ */
+export function getProjectImages(projectSlug: string, imageCount: number = 4, extension: string = 'png'): string[] {
+  const images = [];
+  for (let i = 1; i <= imageCount; i++) {
+    images.push(`/projects/${projectSlug}/image_${i}.${extension}`);
+  }
+  return images;
+}
+
+/**
  * Constante pour le préfixe des assets (utile dans les templates/CSS)
  */
 export const ASSET_PREFIX = typeof window !== 'undefined'
