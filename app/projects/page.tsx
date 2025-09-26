@@ -13,6 +13,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   Search,
   Filter,
@@ -24,7 +25,8 @@ import {
   Euro,
   X,
   Plus,
-  Heart,
+  Settings,
+  LogOut,
 } from "lucide-react"
 
 const allProjects = [
@@ -241,6 +243,14 @@ export default function ProjectsPage() {
   const [showAdvancedLocation, setShowAdvancedLocation] = useState(false)
   const [showHeavyProjects, setShowHeavyProjects] = useState(false)
 
+  const currentUser = {
+    firstName: "Marie",
+    lastName: "Dupont",
+    email: "marie.dupont@sgdf.fr",
+    avatar: getImagePath("/abstract-profile.png"),
+    structure: "Groupe Saint-Michel - Paris 15e",
+  }
+
   // Initialiser la recherche avec les paramètres URL
   useEffect(() => {
     const searchParam = searchParams.get('search')
@@ -363,6 +373,9 @@ export default function ProjectsPage() {
               <a href={getAssetPath("/projects")} className="text-primary font-medium">
                 Projets
               </a>
+              <a href={getAssetPath("/my-projects")} className="text-foreground hover:text-primary font-medium">
+                Mes projets
+              </a>
             </nav>
 
             <div className="flex items-center gap-3">
@@ -380,14 +393,76 @@ export default function ProjectsPage() {
                 </SelectContent>
               </Select>
 
-              <Button variant="outline" size="sm">
-                <Heart className="w-4 h-4 mr-2" />
-                Favoris
-              </Button>
               <Button size="sm" className="bg-primary hover:bg-primary/90">
                 <Plus className="w-4 h-4 mr-2" />
                 Créer un projet
               </Button>
+
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" className="flex items-center gap-3 px-3 py-2 h-auto">
+                    <Avatar className="w-8 h-8">
+                      <AvatarImage
+                        src={currentUser.avatar || getImagePath("/placeholder.svg")}
+                        alt={`${currentUser.firstName} ${currentUser.lastName}`}
+                      />
+                      <AvatarFallback className="text-xs">
+                        {currentUser.firstName[0]}
+                        {currentUser.lastName[0]}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="text-left hidden sm:block">
+                      <div className="text-sm font-medium">
+                        {currentUser.firstName} {currentUser.lastName}
+                      </div>
+                    </div>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-80">
+                  <SheetHeader>
+                    <SheetTitle className="flex items-center gap-3">
+                      <Avatar className="w-12 h-12">
+                        <AvatarImage
+                          src={currentUser.avatar || getImagePath("/placeholder.svg")}
+                          alt={`${currentUser.firstName} ${currentUser.lastName}`}
+                        />
+                        <AvatarFallback>
+                          {currentUser.firstName[0]}
+                          {currentUser.lastName[0]}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <div className="font-semibold">
+                          {currentUser.firstName} {currentUser.lastName}
+                        </div>
+                        <div className="text-sm text-muted-foreground font-normal">{currentUser.structure}</div>
+                      </div>
+                    </SheetTitle>
+                  </SheetHeader>
+
+                  <div className="mt-6 space-y-4">
+                    <div className="space-y-2">
+                      <Button variant="ghost" className="w-full justify-start" asChild>
+                        <a href={getAssetPath("/account")}>
+                          <Settings className="w-4 h-4 mr-3" />
+                          Mon compte
+                        </a>
+                      </Button>
+                      <Button variant="ghost" className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50">
+                        <LogOut className="w-4 h-4 mr-3" />
+                        Se déconnecter
+                      </Button>
+                    </div>
+
+                    <div className="pt-4 border-t">
+                      <div className="text-sm text-muted-foreground">
+                        <div className="mb-1">Email: {currentUser.email}</div>
+                        <div>Structure: {currentUser.structure}</div>
+                      </div>
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
             </div>
           </div>
         </div>
