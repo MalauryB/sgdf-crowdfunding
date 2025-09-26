@@ -430,7 +430,7 @@ export default function HomePage() {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                 <Input
                   placeholder="Rechercher un projet..."
-                  className="pl-10 h-12 bg-white border-2 border-gray-200 shadow-sm hover:border-primary/50 focus:border-primary"
+                  className="pl-10 h-12 bg-white border-2 border-gray-200 hover:border-primary/50 focus:border-primary"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -438,25 +438,20 @@ export default function HomePage() {
               <Button type="submit" size="lg" disabled={!searchQuery.trim()}>
                 Rechercher
               </Button>
-              <Button size="lg" variant="outline" className="bg-white hover:bg-gray-50" asChild>
-                <Link href="/projects">
-                  <Filter className="w-4 h-4" />
-                </Link>
-              </Button>
             </form>
           </div>
 
           {/* Quick Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <div className="bg-white rounded-lg p-6 shadow-sm">
+            <div className="bg-white rounded-lg p-6">
               <div className="text-3xl font-bold text-primary mb-2">127</div>
               <div className="text-muted-foreground">Projets financés</div>
             </div>
-            <div className="bg-white rounded-lg p-6 shadow-sm">
+            <div className="bg-white rounded-lg p-6">
               <div className="text-3xl font-bold text-primary mb-2">€ 245k</div>
               <div className="text-muted-foreground">Montant collecté</div>
             </div>
-            <div className="bg-white rounded-lg p-6 shadow-sm">
+            <div className="bg-white rounded-lg p-6">
               <div className="text-3xl font-bold text-primary mb-2">1,250</div>
               <div className="text-muted-foreground">Contributeurs</div>
             </div>

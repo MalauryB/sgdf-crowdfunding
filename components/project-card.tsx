@@ -77,7 +77,7 @@ export function ProjectCard({
   const branchColorClass = branchColors[branchKey] || "bg-gray-100 text-gray-800"
 
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
+    <Card className="overflow-hidden">
       <div className="relative">
         <img src={getImagePath(image || "/placeholder.svg")} alt={title} className="w-full h-48 object-cover" />
         {branch && <Badge className={`absolute top-3 left-3 ${branchColorClass}`}>{branch}</Badge>}
