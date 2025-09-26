@@ -317,6 +317,9 @@ export default function HomePage() {
                   <Link href="/my-contributions" className="text-foreground hover:text-primary font-medium">
                     Mes contributions
                   </Link>
+                  <Link href="/favorites" className="text-foreground hover:text-primary font-medium">
+                    Mes favoris
+                  </Link>
                 </>
               )}
             </nav>
@@ -328,13 +331,6 @@ export default function HomePage() {
                 </Button>
               ) : (
                 <>
-                  <Button variant="outline" size="sm" asChild>
-                    <Link href="/favorites">
-                      <Heart className="w-4 h-4 mr-2" />
-                      Favoris
-                    </Link>
-                  </Button>
-
                   <Sheet>
                     <SheetTrigger asChild>
                       <Button variant="ghost" className="flex items-center gap-3 px-3 py-2 h-auto">
