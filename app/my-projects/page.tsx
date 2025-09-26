@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { getAssetPath, getImagePath } from "@/lib/utils"
+import { getAssetPath, getImagePath, getProjectMainImage } from "@/lib/utils"
 import { SGDFLogo } from "@/components/sgdf-logo"
 import { ProjectCard } from "@/components/project-card"
 import { Button } from "@/components/ui/button"
@@ -19,7 +19,8 @@ export default function MyProjectsPage() {
       id: "1",
       title: "Camp d'été Scouts - Forêt de Fontainebleau",
       description: "Organisation du camp d'été 2025 pour 40 jeunes scouts dans la magnifique forêt de Fontainebleau.",
-      image: getImagePath("/chalet_de_montagne.png"),
+      image: getImagePath(getProjectMainImage("weekend-nature-fontainebleau")),
+      slug: "weekend-nature-fontainebleau",
       raised: 2800,
       goal: 4500,
       contributors: 23,
@@ -38,7 +39,8 @@ export default function MyProjectsPage() {
       id: "2",
       title: "Matériel nautique - Base de Carnac",
       description: "Renouvellement des kayaks et équipements de sécurité pour les activités nautiques.",
-      image: getImagePath("/equipement_nautique.png"),
+      image: getImagePath(getProjectMainImage("materiel-nautique-carnac")),
+      slug: "materiel-nautique-carnac",
       raised: 1200,
       goal: 3200,
       contributors: 8,
@@ -60,7 +62,8 @@ export default function MyProjectsPage() {
       id: "3",
       title: "Formation BAFA - Session Automne",
       description: "Organisation d'une session de formation BAFA pour 25 futurs animateurs.",
-      image: getImagePath("/formation_bafa.png"),
+      image: getImagePath(getProjectMainImage("formation-bafa-automne")),
+      slug: "formation-bafa-automne",
       raised: 800,
       goal: 1500,
       contributors: 12,
@@ -82,7 +85,8 @@ export default function MyProjectsPage() {
       id: "4",
       title: "Rénovation du local scout",
       description: "Travaux de rénovation et d'aménagement du local du groupe scout de Lyon 3e.",
-      image: getImagePath("/renovation_local_scout_toulouse.png"),
+      image: getImagePath(getProjectMainImage("renovation-local-scout-lyon")),
+      slug: "renovation-local-scout-lyon",
       raised: 5200,
       goal: 8000,
       contributors: 34,
@@ -101,7 +105,8 @@ export default function MyProjectsPage() {
       id: "5",
       title: "Jardin pédagogique Louveteaux",
       description: "Création d'un jardin pédagogique pour sensibiliser les plus jeunes à l'écologie.",
-      image: getImagePath("/jardin_pedagogique.png"),
+      image: getImagePath(getProjectMainImage("jardin-pedagogique-farfadets")),
+      slug: "jardin-pedagogique-farfadets",
       raised: 450,
       goal: 900,
       contributors: 15,

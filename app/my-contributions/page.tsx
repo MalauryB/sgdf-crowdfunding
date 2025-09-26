@@ -97,7 +97,7 @@ export default function MyContributionsPage() {
     }
     if (status === "pending" || paymentStatus === "pending") {
       return (
-        <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
+        <Badge variant="secondary">
           <Clock className="w-3 h-3 mr-1" />
           En attente
         </Badge>
@@ -232,7 +232,7 @@ export default function MyContributionsPage() {
               <CardTitle className="text-sm font-medium text-muted-foreground">En attente</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-yellow-600">{totalPending} €</div>
+              <div className="text-2xl font-bold text-orange-600">{totalPending} €</div>
               <p className="text-xs text-muted-foreground mt-1">Promesses en cours</p>
             </CardContent>
           </Card>
@@ -444,7 +444,7 @@ export default function MyContributionsPage() {
           <TabsContent value="pending">
             <div className="space-y-4">
               {filterContributions(pendingContributions).map((contribution) => (
-                <Card key={contribution.id} className="hover:shadow-md transition-shadow border-yellow-200">
+                <Card key={contribution.id} className="hover:shadow-md transition-shadow border-orange-200">
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
                       <img
@@ -481,7 +481,7 @@ export default function MyContributionsPage() {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                           <div>
                             <p className="text-sm text-muted-foreground">Promesse de don</p>
-                            <p className="text-xl font-bold text-yellow-600">{contribution.amount} €</p>
+                            <p className="text-xl font-bold text-orange-600">{contribution.amount} €</p>
                           </div>
                           <div>
                             <p className="text-sm text-muted-foreground">Date de promesse</p>
@@ -511,8 +511,8 @@ export default function MyContributionsPage() {
                           </div>
                         </div>
 
-                        <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                          <p className="text-sm text-yellow-800">
+                        <div className="mt-4 p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                          <p className="text-sm text-orange-800">
                             <Clock className="w-4 h-4 inline mr-1" />
                             Votre promesse de don est en attente de traitement. Vous recevrez une confirmation par email
                             une fois le virement effectué.

@@ -435,7 +435,7 @@ export default function HomePage() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
-              <Button type="submit" size="lg" disabled={!searchQuery.trim()}>
+              <Button type="submit" className="h-12" disabled={!searchQuery.trim()}>
                 Rechercher
               </Button>
             </form>
