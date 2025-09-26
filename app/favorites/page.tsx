@@ -6,12 +6,22 @@ import { SGDFLogo } from "@/components/sgdf-logo"
 import { ProjectCard } from "@/components/project-card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Search, Filter, Heart, Users, X } from "lucide-react"
+import { Search, Filter, Heart, Users, X, Settings, LogOut, Plus } from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 
 export default function FavoritesPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const [userStructure] = useState("5e Dinan Martin Luther King") // Simulated user structure
   const [showRemoveConfirm, setShowRemoveConfirm] = useState<string | null>(null)
+
+  const currentUser = {
+    firstName: "Marie",
+    lastName: "Dupont",
+    email: "marie.dupont@sgdf.fr",
+    avatar: getImagePath("/abstract-profile.png"),
+    structure: "Groupe Saint-Michel - Paris 15e",
+  }
 
   const favoriteProjects = [
     {
@@ -121,15 +131,72 @@ export default function FavoritesPage() {
                 </a>
               </nav>
             </div>
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" asChild>
-                <a href={getAssetPath("/favorites")} className="text-primary">
-                  ❤️ Favoris
-                </a>
-              </Button>
-              <Button asChild>
-                <a href={getAssetPath("/create-project")}>Créer un projet</a>
-              </Button>
+            <div className="flex items-center gap-3">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" className="flex items-center gap-3 px-3 py-2 h-auto">
+                    <Avatar className="w-8 h-8">
+                      <AvatarImage
+                        src={currentUser.avatar || getImagePath("/placeholder.svg")}
+                        alt={`${currentUser.firstName} ${currentUser.lastName}`}
+                      />
+                      <AvatarFallback className="text-xs">
+                        {currentUser.firstName[0]}
+                        {currentUser.lastName[0]}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="text-left hidden sm:block">
+                      <div className="text-sm font-medium">
+                        {currentUser.firstName} {currentUser.lastName}
+                      </div>
+                    </div>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-80">
+                  <SheetHeader>
+                    <SheetTitle className="flex items-center gap-3">
+                      <Avatar className="w-12 h-12">
+                        <AvatarImage
+                          src={currentUser.avatar || getImagePath("/placeholder.svg")}
+                          alt={`${currentUser.firstName} ${currentUser.lastName}`}
+                        />
+                        <AvatarFallback>
+                          {currentUser.firstName[0]}
+                          {currentUser.lastName[0]}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <div className="font-semibold">
+                          {currentUser.firstName} {currentUser.lastName}
+                        </div>
+                        <div className="text-sm text-muted-foreground font-normal">{currentUser.structure}</div>
+                      </div>
+                    </SheetTitle>
+                  </SheetHeader>
+
+                  <div className="mt-6 space-y-4">
+                    <div className="space-y-2">
+                      <Button variant="ghost" className="w-full justify-start" asChild>
+                        <a href={getAssetPath("/account")}>
+                          <Settings className="w-4 h-4 mr-3" />
+                          Mon compte
+                        </a>
+                      </Button>
+                      <Button variant="ghost" className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50">
+                        <LogOut className="w-4 h-4 mr-3" />
+                        Se déconnecter
+                      </Button>
+                    </div>
+
+                    <div className="pt-4 border-t">
+                      <div className="text-sm text-muted-foreground">
+                        <div className="mb-1">Email: {currentUser.email}</div>
+                        <div>Structure: {currentUser.structure}</div>
+                      </div>
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
             </div>
           </div>
         </div>
@@ -148,23 +215,6 @@ export default function FavoritesPage() {
           </p>
         </div>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
-          <div className="flex items-start gap-3">
-            <Users className="w-5 h-5 text-blue-600 mt-0.5" />
-            <div>
-              <h3 className="font-semibold text-blue-900 mb-1">Favoris de {userStructure}</h3>
-              <p className="text-sm text-blue-700 mb-2">
-                Cette page affiche tous les projets marqués comme favoris par les membres de votre structure. Les
-                favoris ne sont visibles que par votre équipe et ne sont pas partagés avec les autres structures.
-              </p>
-              <div className="flex items-center gap-4 text-xs text-blue-600">
-                <span>• Visibilité limitée à votre structure</span>
-                <span>• Pas de partage inter-structures</span>
-                <span>• Gestion collaborative des favoris</span>
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* Search and Filters */}
         <div className="mb-8 flex flex-col sm:flex-row gap-4">
@@ -236,24 +286,7 @@ export default function FavoritesPage() {
         {filteredProjects.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProjects.map((project) => (
-              <div key={project.id} className="relative">
-                <ProjectCard {...project} />
-                <div className="absolute top-4 right-4 flex gap-2">
-                  <div className="bg-white/90 backdrop-blur rounded-full px-3 py-1 text-xs font-medium text-muted-foreground border">
-                    <Heart className="w-3 h-3 inline mr-1 text-red-500" />
-                    {project.favoriteBy}
-                  </div>
-                  {project.canRemove && (
-                    <button
-                      onClick={() => setShowRemoveConfirm(project.id)}
-                      className="bg-red-50 hover:bg-red-100 border border-red-200 rounded-full p-1.5 text-red-600 transition-colors"
-                      title="Retirer des favoris"
-                    >
-                      <X className="w-3 h-3" />
-                    </button>
-                  )}
-                </div>
-              </div>
+              <ProjectCard key={project.id} {...project} />
             ))}
           </div>
         ) : (
