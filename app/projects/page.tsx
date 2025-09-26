@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from "react"
-import { getAssetPath, getImagePath } from "@/lib/utils"
+import { useState, useEffect } from "react"
+import { useSearchParams } from "next/navigation"
+import { getAssetPath, getImagePath, getProjectMainImage } from "@/lib/utils"
 import { SGDFLogo } from "@/components/sgdf-logo"
 import { ProjectCard } from "@/components/project-card"
 import { Button } from "@/components/ui/button"
@@ -32,7 +33,8 @@ const allProjects = [
     title: "Camp d'été Louveteaux-Jeannettes en Ardèche",
     description:
       "Financement du camp d'été de notre meute et compagnie pour 8 jours dans les gorges de l'Ardèche avec canoë et grands jeux nature.",
-    image: getImagePath("/ardèche.png"),
+    image: getImagePath(getProjectMainImage("camp-ete-ardeche")),
+    slug: "camp-ete-ardeche",
     category: "Activité",
     location: "Vallon-Pont-d'Arc, Ardèche",
     targetAmount: 4500,
@@ -49,7 +51,8 @@ const allProjects = [
     title: "Rénovation du local scout de Toulouse",
     description:
       "Nos Pionniers-Caravelles rénovent entièrement notre local : peinture, électricité et aménagement d'une salle d'activités.",
-    image: getImagePath("/renovation_local_scout_toulouse.png"),
+    image: getImagePath(getProjectMainImage("renovation-local-toulouse")),
+    slug: "renovation-local-toulouse",
     category: "Investissement",
     location: "Toulouse, Haute-Garonne",
     targetAmount: 8500,
@@ -66,7 +69,8 @@ const allProjects = [
     title: "Achat d'un minibus pour le groupe",
     description:
       "Acquisition d'un véhicule 9 places pour faciliter les déplacements lors des sorties et week-ends scouts en région parisienne.",
-    image: getImagePath("/minibus_pour_le_groupe.png"),
+    image: getImagePath(getProjectMainImage("minibus-groupe")),
+    slug: "minibus-groupe",
     category: "Investissement",
     location: "Créteil, Val-de-Marne",
     targetAmount: 18000,
@@ -82,7 +86,8 @@ const allProjects = [
     id: "4",
     title: "Matériel de camping pour la troupe",
     description: "Renouvellement des tentes, réchauds et matériel de cuisine pour les camps scouts en Bretagne.",
-    image: getImagePath("/camping_materiels.png"),
+    image: getImagePath(getProjectMainImage("materiel-camping-troupe")),
+    slug: "materiel-camping-troupe",
     category: "Investissement",
     location: "Rennes, Ille-et-Vilaine",
     targetAmount: 2800,
@@ -98,7 +103,8 @@ const allProjects = [
     id: "5",
     title: "Formation BAFA pour nos chefs",
     description: "Financement de la formation BAFA pour 6 nouveaux chefs et cheftaines du groupe lyonnais.",
-    image: getImagePath("/formation_bafa.png"),
+    image: getImagePath(getProjectMainImage("formation-bafa")),
+    slug: "formation-bafa",
     category: "Formation",
     location: "Lyon, Rhône",
     targetAmount: 3600,
@@ -115,7 +121,8 @@ const allProjects = [
     title: "Jardin pédagogique pour les Farfadets",
     description:
       "Création d'un potager éducatif dans notre jardin alsacien pour sensibiliser nos plus jeunes à l'écologie.",
-    image: getImagePath("/chalet_de_montagne.png"),
+    image: getImagePath(getProjectMainImage("jardin-pedagogique-farfadets")),
+    slug: "jardin-pedagogique-farfadets",
     category: "Environnement",
     location: "Strasbourg, Bas-Rhin",
     targetAmount: 1500,
@@ -131,7 +138,8 @@ const allProjects = [
     id: "7",
     title: "Week-end ski pour les Scouts-Guides",
     description: "Organisation d'un week-end à la montagne avec cours de ski et veillées pour 25 jeunes savoyards.",
-    image: getImagePath("/weekend_ski.png"),
+    image: getImagePath(getProjectMainImage("weekend-ski-vosges")),
+    slug: "weekend-ski-vosges",
     category: "Activité",
     location: "Les Gets, Haute-Savoie",
     targetAmount: 3200,
@@ -147,7 +155,8 @@ const allProjects = [
     id: "8",
     title: "Rénovation du chalet scout des Vosges",
     description: "Travaux de toiture, isolation et aménagement de notre chalet pour accueillir les camps d'hiver.",
-    image: getImagePath("/montagne_vosges.png"),
+    image: getImagePath(getProjectMainImage("renovation-chalet-montagne")),
+    slug: "renovation-chalet-montagne",
     category: "Investissement",
     location: "Gérardmer, Vosges",
     targetAmount: 12000,
@@ -163,7 +172,8 @@ const allProjects = [
     id: "9",
     title: "Matériel nautique pour les activités marines",
     description: "Achat de kayaks, gilets de sauvetage et matériel de voile pour la section marine de La Rochelle.",
-    image: getImagePath("/equipement_nautique.png"),
+    image: getImagePath(getProjectMainImage("equipement-nautique-marins")),
+    slug: "equipement-nautique-marins",
     category: "Investissement",
     location: "La Rochelle, Charente-Maritime",
     targetAmount: 5400,
@@ -216,6 +226,7 @@ const planOrientationCategories = [
 ]
 
 export default function ProjectsPage() {
+  const searchParams = useSearchParams()
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedTerritory, setSelectedTerritory] = useState("all")
   const [selectedCategory, setSelectedCategory] = useState("all")
@@ -229,6 +240,14 @@ export default function ProjectsPage() {
   const [selectedTerritories, setSelectedTerritories] = useState<string[]>([])
   const [showAdvancedLocation, setShowAdvancedLocation] = useState(false)
   const [showHeavyProjects, setShowHeavyProjects] = useState(false)
+
+  // Initialiser la recherche avec les paramètres URL
+  useEffect(() => {
+    const searchParam = searchParams.get('search')
+    if (searchParam) {
+      setSearchQuery(searchParam)
+    }
+  }, [searchParams])
 
   const filteredProjects = allProjects.filter((project) => {
     // Search query filter

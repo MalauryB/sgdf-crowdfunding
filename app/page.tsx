@@ -10,6 +10,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { Search, Filter, Heart, TrendingUp, Clock, User, LogOut, Settings } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { getAssetPath, getImagePath, getProjectMainImage } from "@/lib/utils"
 
 const investmentProjectsAdvanced = [
@@ -220,6 +221,9 @@ const nationalProjects = [
 
 export default function HomePage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
+  const router = useRouter()
+
   const currentUser = {
     firstName: "Marie",
     lastName: "Dupont",
@@ -283,6 +287,13 @@ export default function HomePage() {
   }
 
   const { section1, section2, section3 } = getProjectsToDisplay()
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      router.push(`/projects?search=${encodeURIComponent(searchQuery.trim())}`)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -414,17 +425,25 @@ export default function HomePage() {
 
           {/* Search Bar */}
           <div className="max-w-2xl mx-auto mb-8">
-            <div className="flex gap-2">
+            <form onSubmit={handleSearch} className="flex gap-2">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                <Input placeholder="Rechercher un projet..." className="pl-10 h-12" />
+                <Input
+                  placeholder="Rechercher un projet..."
+                  className="pl-10 h-12 bg-white border-2 border-gray-200 shadow-sm hover:border-primary/50 focus:border-primary"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
               </div>
-              <Button size="lg" variant="outline" asChild>
+              <Button type="submit" size="lg" disabled={!searchQuery.trim()}>
+                Rechercher
+              </Button>
+              <Button size="lg" variant="outline" className="bg-white hover:bg-gray-50" asChild>
                 <Link href="/projects">
                   <Filter className="w-4 h-4" />
                 </Link>
               </Button>
-            </div>
+            </form>
           </div>
 
           {/* Quick Stats */}
