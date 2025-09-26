@@ -31,7 +31,7 @@ import {
 
 const allProjects = [
   {
-    id: "1",
+    id: "7",
     title: "Camp d'été Louveteaux-Jeannettes en Ardèche",
     description:
       "Financement du camp d'été de notre meute et compagnie pour 8 jours dans les gorges de l'Ardèche avec canoë et grands jeux nature.",
@@ -119,7 +119,7 @@ const allProjects = [
     createdAt: "2024-02-05",
   },
   {
-    id: "6",
+    id: "11",
     title: "Jardin pédagogique pour les Farfadets",
     description:
       "Création d'un potager éducatif dans notre jardin alsacien pour sensibiliser nos plus jeunes à l'écologie.",
@@ -137,7 +137,7 @@ const allProjects = [
     createdAt: "2024-01-10",
   },
   {
-    id: "7",
+    id: "9",
     title: "Week-end ski pour les Scouts-Guides",
     description: "Organisation d'un week-end à la montagne avec cours de ski et veillées pour 25 jeunes savoyards.",
     image: getImagePath(getProjectMainImage("weekend-ski-vosges")),
@@ -154,11 +154,11 @@ const allProjects = [
     createdAt: "2024-02-10",
   },
   {
-    id: "8",
+    id: "12",
     title: "Rénovation du chalet scout des Vosges",
     description: "Travaux de toiture, isolation et aménagement de notre chalet pour accueillir les camps d'hiver.",
-    image: getImagePath(getProjectMainImage("renovation-chalet-montagne")),
-    slug: "renovation-chalet-montagne",
+    image: getImagePath(getProjectMainImage("renovation-chalet-vosges")),
+    slug: "renovation-chalet-vosges",
     category: "Investissement",
     location: "Gérardmer, Vosges",
     targetAmount: 12000,
@@ -171,7 +171,7 @@ const allProjects = [
     createdAt: "2024-01-30",
   },
   {
-    id: "9",
+    id: "13",
     title: "Matériel nautique pour les activités marines",
     description: "Achat de kayaks, gilets de sauvetage et matériel de voile pour la section marine de La Rochelle.",
     image: getImagePath(getProjectMainImage("equipement-nautique-marins")),
@@ -393,9 +393,11 @@ export default function ProjectsPage() {
                 </SelectContent>
               </Select>
 
-              <Button size="sm" className="bg-primary hover:bg-primary/90">
-                <Plus className="w-4 h-4 mr-2" />
-                Créer un projet
+              <Button size="sm" className="bg-primary hover:bg-primary/90" asChild>
+                <a href={getAssetPath("/create-project")}>
+                  <Plus className="w-4 h-4 mr-2" />
+                  Créer un projet
+                </a>
               </Button>
 
               <Sheet>

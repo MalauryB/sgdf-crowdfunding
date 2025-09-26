@@ -47,8 +47,7 @@ export function getImagePath(path: string): string {
  * Map des projets avec des extensions spéciales
  */
 const PROJECT_EXTENSIONS: Record<string, string> = {
-  'materiel-nautique-carnac': 'jpg',
-  // Ajouter d'autres projets avec des extensions non-PNG ici
+  // Ajouter d'autres projets avec des extensions non-PNG ici si nécessaire
 };
 
 /**

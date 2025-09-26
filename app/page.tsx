@@ -66,10 +66,10 @@ const investmentProjectsRecent = [
     title: "Équipement nautique pour les marins",
     description:
       "Achat de kayaks et matériel de sécurité pour les activités nautiques de notre groupe marin bordelais.",
-    image: getImagePath(getProjectMainImage("equipement-nautique-marins")),
-    slug: "equipement-nautique-marins",
+    image: getImagePath(getProjectMainImage("materiel-nautique-carnac")),
+    slug: "materiel-nautique-carnac",
     category: "Investissement",
-    location: "Bordeaux, Gironde",
+    location: "Carnac, Morbihan",
     targetAmount: 5200,
     currentAmount: 1560,
     daysLeft: 55,
@@ -139,18 +139,17 @@ const activityProjects = [
   },
   {
     id: "9",
-    title: "Jardin pédagogique pour les Farfadets",
-    description:
-      "Création d'un potager éducatif dans notre jardin alsacien pour sensibiliser nos plus jeunes à l'écologie.",
-    image: getImagePath(getProjectMainImage("jardin-pedagogique-farfadets")),
-    slug: "jardin-pedagogique-farfadets",
+    title: "Week-end ski pour les Scouts-Guides",
+    description: "Organisation d'un week-end ski dans les Alpes pour notre troupe et notre compagnie de guides.",
+    image: getImagePath(getProjectMainImage("weekend-ski-alpes")),
+    slug: "weekend-ski-alpes",
     category: "Activité",
-    location: "Strasbourg, Bas-Rhin",
-    targetAmount: 1500,
-    currentAmount: 890,
-    daysLeft: 45,
-    supportersCount: 9,
-    branch: "farfadets" as const,
+    location: "Les Deux Alpes, Isère",
+    targetAmount: 3500,
+    currentAmount: 2100,
+    daysLeft: 25,
+    supportersCount: 14,
+    branch: "scouts" as const,
   },
   {
     id: "10",
@@ -171,51 +170,51 @@ const activityProjects = [
 const myStructureProjects = [
   {
     id: "11",
-    title: "Camp d'été de notre groupe",
-    description: "Financement du camp d'été 2025 de notre groupe local avec activités nature et grands jeux.",
-    image: getImagePath(getProjectMainImage("camp-ete-groupe-local")),
-    slug: "camp-ete-groupe-local",
-    category: "Investissement",
-    location: "Ma structure locale",
-    targetAmount: 6500,
-    currentAmount: 4200,
+    title: "Jardin pédagogique pour les Farfadets",
+    description: "Création d'un potager éducatif dans notre jardin alsacien pour sensibiliser nos plus jeunes à l'écologie.",
+    image: getImagePath(getProjectMainImage("jardin-pedagogique-farfadets")),
+    slug: "jardin-pedagogique-farfadets",
+    category: "Activité",
+    location: "Strasbourg, Bas-Rhin",
+    targetAmount: 1500,
+    currentAmount: 890,
     daysLeft: 45,
-    supportersCount: 24,
-    branch: "scouts" as const,
+    supportersCount: 9,
+    branch: "farfadets" as const,
   },
 ]
 
 const parentStructureProjects = [
   {
     id: "12",
-    title: "Formation territoriale des chefs",
-    description: "Programme de formation continue pour les responsables de notre territoire.",
-    image: getImagePath(getProjectMainImage("formation-territoriale")),
-    slug: "formation-territoriale",
-    category: "Formation",
-    location: "Territoire de rattachement",
-    targetAmount: 4200,
-    currentAmount: 1800,
-    daysLeft: 60,
-    supportersCount: 12,
-    branch: "compagnons" as const,
+    title: "Rénovation du chalet scout des Vosges",
+    description: "Rénovation complète de notre chalet dans les Vosges : toiture, chauffage et aménagement pour les camps.",
+    image: getImagePath(getProjectMainImage("renovation-chalet-vosges")),
+    slug: "renovation-chalet-vosges",
+    category: "Investissement",
+    location: "Gérardmer, Vosges",
+    targetAmount: 15000,
+    currentAmount: 6000,
+    daysLeft: 75,
+    supportersCount: 18,
+    branch: "scouts" as const,
   },
 ]
 
 const nationalProjects = [
   {
     id: "13",
-    title: "Jamboree Scout Mondial 2027",
-    description: "Participation de la délégation française au Jamboree Scout Mondial en Pologne.",
-    image: getImagePath(getProjectMainImage("jamboree-mondial-2027")),
-    slug: "jamboree-mondial-2027",
+    title: "Matériel nautique pour les activités marines",
+    description: "Achat de matériel nautique et équipements de sécurité pour les activités marines de notre base de Carnac.",
+    image: getImagePath(getProjectMainImage("materiel-nautique-carnac")),
+    slug: "materiel-nautique-carnac",
     category: "Investissement",
-    location: "National - International",
-    targetAmount: 25000,
-    currentAmount: 8500,
-    daysLeft: 120,
-    supportersCount: 45,
-    branch: "scouts" as const,
+    location: "Carnac, Morbihan",
+    targetAmount: 8500,
+    currentAmount: 3400,
+    daysLeft: 55,
+    supportersCount: 16,
+    branch: "marins" as const,
   },
 ]
 
@@ -301,9 +300,7 @@ export default function HomePage() {
       <header className="border-b bg-white sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link href="/sgdf-crowdfunding">
-              <SGDFLogo size="md" />
-            </Link>
+            <SGDFLogo size="md" />
 
             <nav className="hidden md:flex items-center space-x-6">
               <Link href="/projects" className="text-foreground hover:text-primary font-medium">
