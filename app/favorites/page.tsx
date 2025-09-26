@@ -216,8 +216,8 @@ export default function FavoritesPage() {
         </div>
 
 
-        {/* Search and Filters */}
-        <div className="mb-8 flex flex-col sm:flex-row gap-4">
+        {/* Search */}
+        <div className="mb-8">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
             <Input
@@ -227,10 +227,6 @@ export default function FavoritesPage() {
               className="pl-10"
             />
           </div>
-          <Button variant="outline">
-            <Filter className="w-4 h-4 mr-2" />
-            Filtres
-          </Button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
@@ -326,24 +322,6 @@ export default function FavoritesPage() {
           </div>
         )}
 
-        {/* Call to Action */}
-        {filteredProjects.length > 0 && (
-          <div className="mt-12 text-center bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-8">
-            <h3 className="text-2xl font-bold text-primary mb-4 font-caveat">Envie de soutenir ces projets ?</h3>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Ces projets ont été sélectionnés par votre équipe. Contribuez dès maintenant pour les aider à atteindre
-              leurs objectifs !
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild>
-                <a href={getAssetPath("/projects")}>Découvrir plus de projets</a>
-              </Button>
-              <Button variant="outline" asChild>
-                <a href={getAssetPath("/create-project")}>Créer mon projet</a>
-              </Button>
-            </div>
-          </div>
-        )}
       </main>
 
       {/* Footer */}
