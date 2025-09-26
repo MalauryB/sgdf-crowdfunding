@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { getAssetPath, getImagePath } from "@/lib/utils"
+import { getAssetPath, getImagePath, getProjectMainImage } from "@/lib/utils"
 import { SGDFLogo } from "@/components/sgdf-logo"
 import { ProjectCard } from "@/components/project-card"
 import { Button } from "@/components/ui/button"
@@ -18,7 +18,8 @@ export default function FavoritesPage() {
       id: "1",
       title: "Camp d'été Scouts - Forêt de Fontainebleau",
       description: "Organisation du camp d'été 2025 pour 40 jeunes scouts dans la magnifique forêt de Fontainebleau.",
-      image: getImagePath("/chalet_de_montagne.png"),
+      image: getImagePath(getProjectMainImage("weekend-nature-fontainebleau")),
+      slug: "weekend-nature-fontainebleau",
       raised: 2800,
       goal: 4500,
       contributors: 23,
@@ -35,7 +36,8 @@ export default function FavoritesPage() {
       id: "2",
       title: "Projet solidaire - Aide aux sinistrés",
       description: "Collecte de fonds pour venir en aide aux familles touchées par les inondations dans le Sud-Ouest.",
-      image: getImagePath("/renovation_local_scout_toulouse.png"),
+      image: getImagePath(getProjectMainImage("projet-solidaire-sinistres")),
+      slug: "projet-solidaire-sinistres",
       raised: 3200,
       goal: 5000,
       contributors: 45,
@@ -52,7 +54,8 @@ export default function FavoritesPage() {
       id: "3",
       title: "Formation BAFA - Session Automne",
       description: "Organisation d'une session de formation BAFA pour 25 futurs animateurs scouts.",
-      image: getImagePath("/formation_bafa.png"),
+      image: getImagePath(getProjectMainImage("formation-bafa-automne")),
+      slug: "formation-bafa-automne",
       raised: 800,
       goal: 1500,
       contributors: 12,
@@ -69,7 +72,8 @@ export default function FavoritesPage() {
       id: "4",
       title: "Matériel nautique - Base de Carnac",
       description: "Renouvellement des kayaks et équipements de sécurité pour les activités nautiques en Bretagne.",
-      image: getImagePath("/equipement_nautique.png"),
+      image: getImagePath(getProjectMainImage("materiel-nautique-carnac")),
+      slug: "materiel-nautique-carnac",
       raised: 1200,
       goal: 3200,
       contributors: 8,
